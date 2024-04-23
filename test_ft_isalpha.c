@@ -1,0 +1,40 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   test_ft_isalpha.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: eduribei <eduribei@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/04/23 18:22:00 by eduribei          #+#    #+#             */
+/*   Updated: 2024/04/23 18:43:08 by eduribei         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include <stdio.h>
+
+int	ft_isalpha(int c);
+
+#define ANSI_COLOR_RED     "\x1b[31m"
+#define ANSI_COLOR_GREEN   "\x1b[32m"
+#define ANSI_COLOR_RESET   "\x1b[0m"
+
+void	test_ft_isalpha(int c, int expected, char *comment)
+{
+	int	result;
+
+	result = ft_isalpha(c);
+	printf("Test ft_isalpha: Input '%c' (ASCII %d). Expected: %d | Output: %d\n", c, c, expected, result);
+	if (result == expected) 
+		printf(ANSI_COLOR_GREEN "PASS" ANSI_COLOR_RESET "\n");
+	else
+		printf(ANSI_COLOR_RED "FAIL" ANSI_COLOR_RESET "\n");
+}
+
+int	main(void)
+{
+	printf("Testing ft_isalpha function\n");
+	test_ft_isalpha('a', 1, "lowercase");
+	test_ft_isalpha('2', 0, "digit");
+	test_ft_isalpha('&', 0, "punctuation");
+	return (0);
+}
