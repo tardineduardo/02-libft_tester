@@ -18,7 +18,7 @@ all: test clean
 # Rule to build and run tests
 test: $(EXE)
 $(EXE): test_ft_% : ../ft_%.c test_ft_%.c
-	$(CC) $(CFLAGS) $^ -o $@
+	@$(CC) $(CFLAGS) $^ -o $@
 	./$@
 
 # Clean up executables
