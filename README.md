@@ -1,1 +1,1 @@
-# libft_tester ???
+23APR24 - This is a tester for each individual function of libft.

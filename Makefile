@@ -1,37 +1,53 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: eduribei <eduribei@student.42.fr>          +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/04/21 20:10:52 by eduribei          #+#    #+#              #
-#    Updated: 2024/04/23 19:30:20 by eduribei         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
+# Compiler and linker
+CC := gcc
+CFLAGS := -Wall -Wextra -Werror
+LDFLAGS := -ldl  # Link against the dynamic loading library
 
-NAME    = libft.a
-SRCS    = ./srcs/*.c
-HEAD    = ./includes
-OBJS    = $(SRCS:.c=.o)
-CFLAGS  = -Wall -Wextra -Werror -I$(HEAD)
-GCC     = cc
+# Directory containing the student's libft files
+LIBFT_DIR := ..
 
-all:    $(NAME)
+# Directory containing the test files
+TEST_DIR := tests
 
-.c.o:
-	${GCC} ${CFLAGS} -c $< -o $@
+# Include paths for the header files
+INCLUDES := -I$(LIBFT_DIR) -I$(TEST_DIR)
 
-$(NAME): $(OBJS)
-	ar rc $(NAME) $(OBJS)
-	ranlib $(NAME)
+# Path to the libft.a library
+LIBFT := $(LIBFT_DIR)/libft.a
 
+# Source files for the tester
+TEST_SRC := $(wildcard $(TEST_DIR)/*.c)
+TEST_OBJ := $(TEST_SRC:.c=.o)
+
+# Name of the executable that will run the tests
+TEST_EXEC := tester
+
+# Default target
+all: $(TEST_EXEC)
+
+# Linking the test executable
+$(TEST_EXEC): $(LIBFT) $(TEST_OBJ)
+	$(CC) $(CFLAGS) $(LDFLAGS) $(INCLUDES) -o $@ $(TEST_OBJ) $(LIBFT)
+
+# Compiling object files
+%.o: %.c
+	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+
+# Running the tester to execute all tests
+run: $(TEST_EXEC)
+	./$(TEST_EXEC)
+
+# Cleaning up the build files
 clean:
-	rm -f $(OBJS)
+	rm -f $(TEST_OBJ) $(TEST_EXEC)
+	$(MAKE) -C $(LIBFT_DIR) clean
 
+# Removing everything including the static library
 fclean: clean
-	rm -f $(NAME)
+	$(MAKE) -C $(LIBFT_DIR) fclean
 
+# Rebuilding everything from scratch
 re: fclean all
 
-.PHONY: all clean fclean re
+# Phony targets
+.PHONY: all run clean fclean re
