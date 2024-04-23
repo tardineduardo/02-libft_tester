@@ -1,53 +1,26 @@
-# Compiler and linker
-CC := gcc
-CFLAGS := -Wall -Wextra -Werror
-LDFLAGS := -ldl  # Link against the dynamic loading library
+# Makefile inside the test_libft directory
 
-# Directory containing the student's libft files
-LIBFT_DIR := ..
+# Compiler to use
+CC = gcc
+# Compiler flags, e.g., -I for include path
+CFLAGS = -I../ -Wall -Wextra -Werror
 
-# Directory containing the test files
-TEST_DIR := tests
+# Collect all ft_*.c files from parent directory
+SRC = $(wildcard ../ft_*.c)
+# Convert ft_*.c filenames to executable names based on the pattern
+EXE = $(SRC:../ft_%.c=test_ft_%)
 
-# Include paths for the header files
-INCLUDES := -I$(LIBFT_DIR) -I$(TEST_DIR)
-
-# Path to the libft.a library
-LIBFT := $(LIBFT_DIR)/libft.a
-
-# Source files for the tester
-TEST_SRC := $(wildcard $(TEST_DIR)/*.c)
-TEST_OBJ := $(TEST_SRC:.c=.o)
-
-# Name of the executable that will run the tests
-TEST_EXEC := tester
+.PHONY: all clean test
 
 # Default target
-all: $(TEST_EXEC)
+all: test clean
 
-# Linking the test executable
-$(TEST_EXEC): $(LIBFT) $(TEST_OBJ)
-	$(CC) $(CFLAGS) $(LDFLAGS) $(INCLUDES) -o $@ $(TEST_OBJ) $(LIBFT)
+# Rule to build and run tests
+test: $(EXE)
+$(EXE): test_ft_% : ../ft_%.c test_ft_%.c
+	$(CC) $(CFLAGS) $^ -o $@
+	./$@
 
-# Compiling object files
-%.o: %.c
-	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
-
-# Running the tester to execute all tests
-run: $(TEST_EXEC)
-	./$(TEST_EXEC)
-
-# Cleaning up the build files
+# Clean up executables
 clean:
-	rm -f $(TEST_OBJ) $(TEST_EXEC)
-	$(MAKE) -C $(LIBFT_DIR) clean
-
-# Removing everything including the static library
-fclean: clean
-	$(MAKE) -C $(LIBFT_DIR) fclean
-
-# Rebuilding everything from scratch
-re: fclean all
-
-# Phony targets
-.PHONY: all run clean fclean re
+	@rm -f $(EXE)
