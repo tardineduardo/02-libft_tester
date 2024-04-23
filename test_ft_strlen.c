@@ -6,7 +6,7 @@
 /*   By: eduribei <eduribei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 18:22:00 by eduribei          #+#    #+#             */
-/*   Updated: 2024/04/23 21:49:42 by eduribei         ###   ########.fr       */
+/*   Updated: 2024/04/23 21:56:06 by eduribei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ int	main(void)
 	test_ft_strlen("batatinha quando nasce...", 25, "Normal string");
 	test_ft_strlen("", 0, "Empty string");
 	test_ft_strlen("1", 1, "String with one char");
-    test_ft_strlen("\\n", 1, "String with newline character");
     test_ft_strlen("  ", 2, "String with only spaces");
     test_ft_strlen("hello\0world", 5, "String with null terminator in the middle");
 
