@@ -1,3 +1,5 @@
+# Makefile inside the test_libft directory
+
 # Compiler to use
 CC = gcc
 # Compiler flags, e.g., -I for include path
