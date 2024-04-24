@@ -25,3 +25,6 @@ We are still learning how to create more complex and dynamic Makefiles, so for t
  ```c
  #include "libft.h"
  ```
+## Tests available
+- ft_isalpha
+- ft_strlen
