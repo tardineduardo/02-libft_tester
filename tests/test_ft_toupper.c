@@ -11,43 +11,38 @@
 /* ************************************************************************** */
 
 #include <stdio.h>
+#include <ctype.h>
+
+int	ft_toupper(int c);
+
+#define ANSI_COLOR_RED     "\x1b[31m"
+#define ANSI_COLOR_GREEN   "\x1b[32m"
+#define ANSI_COLOR_RESET   "\x1b[0m"
+
+void	test_ft_toupper(char* c, char *comment)
+{
+	int result = ft_strlen(c);
+	int expected = strlen(c);
+
+	if (result == expected) 
+		printf(ANSI_COLOR_GREEN "[[[PASS]]] " ANSI_COLOR_RESET);
+	else
+		printf(ANSI_COLOR_RED "[[[FAIL]]] " ANSI_COLOR_RESET);
+
+	printf("Input: <\"%s\"> (%s) | Expected: %d | Output: %d \n", c, comment, expected, result);
+
+}
 
 int	main(void)
 {
-    printf("\033[1;34mThis test is not ready yet.\033[0m\n\n");
+	printf(">>>>> TESTING FT_TOUPPER\n");
+	test_ft_toupper('a', "Lowercase char with single quotes");
+	test_ft_toupper('L', "Uppercase char with single quotes");
+	test_ft_toupper('', "Empty char");
+	test_ft_toupper('_', "Space char");
+    test_ft_toupper('\n', "Line break");
+	printf("\n");s
+
+
+	return (0);
 }
-
-
-
-// int	ft_strlen(char *c);
-
-// #define ANSI_COLOR_RED     "\x1b[31m"
-// #define ANSI_COLOR_GREEN   "\x1b[32m"
-// #define ANSI_COLOR_RESET   "\x1b[0m"
-
-// void	test_ft_strlen(char* c, int expected, char *comment)
-// {
-// 	int	result = ft_strlen(c);
-
-// 	if (result == expected) 
-// 		printf(ANSI_COLOR_GREEN "[[[PASS]]] " ANSI_COLOR_RESET);
-// 	else
-// 		printf(ANSI_COLOR_RED "[[[FAIL]]] " ANSI_COLOR_RESET);
-
-// 	printf("ft_strlen > Input: <\"%s\"> (%s) | Expected: %d | Output: %d \n", c, comment, expected, result);
-
-// }
-
-// int	main(void)
-// {
-// 	printf(">>>>> TESTING FT_STRLEN\n");
-// 	test_ft_strlen("batatinha quando nasce...", 25, "Normal string");
-// 	test_ft_strlen("", 0, "Empty string");
-// 	test_ft_strlen("1", 1, "String with one char");
-//  test_ft_strlen("  ", 2, "String with only spaces");
-//  test_ft_strlen("hello\0world", 5, "String with null terminator in the middle");
-//	printf("\n");
-
-
-// 	return (0);
-// }
