@@ -21,7 +21,8 @@ This tester checks each function individually. We are not checking the compilati
 ## Important Notes
 We are still learning how to create more complex and dynamic Makefiles, so for this version, you need to follow stricter rules:
 - Your main libft folder can't have any `.c` files other than the ones expected by the exercise.
-- All `.c` files to be tested need this header:
+- All `.c` files to be tested need to be on the same root folder.
+- All `.c` files to be tested must include this header:
  ```c
  #include "libft.h"
  ```
