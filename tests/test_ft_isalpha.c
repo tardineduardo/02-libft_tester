@@ -6,7 +6,7 @@
 /*   By: eduribei <eduribei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 18:22:00 by eduribei          #+#    #+#             */
-/*   Updated: 2024/04/24 11:47:11 by eduribei         ###   ########.fr       */
+/*   Updated: 2024/04/24 14:56:53 by eduribei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@ void	test_ft_isalpha(int c, int expected, char *comment)
 int	main(void)
 {
 	printf(">>>>> TESTING FT_ISALPHA\n");
-	test_ft_isalpha('a', 0, "lowercase");
-	test_ft_isalpha('2', 1, "digit");
-	test_ft_isalpha('&', 1, "punctuation");
+	test_ft_isalpha('a', 1, "lowercase");
+	test_ft_isalpha('2', 0, "digit");
+	test_ft_isalpha('&', 0, "punctuation");
 	printf("\n");
 
 	return (0);
