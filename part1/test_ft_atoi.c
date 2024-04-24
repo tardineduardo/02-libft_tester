@@ -6,7 +6,7 @@
 /*   By: eduribei <eduribei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 18:22:00 by eduribei          #+#    #+#             */
-/*   Updated: 2024/04/24 10:07:33 by eduribei         ###   ########.fr       */
+/*   Updated: 2024/04/24 10:28:10 by eduribei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 
 int	main(void)
 {
-	printf("{{{{{{{This test is not ready yet.}}}}}}}\n");
+    printf("\033[1;34mThis test is not ready yet.\033[0m\n\n");
 }
+
 
 
 // int	ft_strlen(char *c);
@@ -45,6 +46,7 @@ int	main(void)
 // 	test_ft_strlen("1", 1, "String with one char");
 //  test_ft_strlen("  ", 2, "String with only spaces");
 //  test_ft_strlen("hello\0world", 5, "String with null terminator in the middle");
+//	printf("\n");
 
 
 // 	return (0);

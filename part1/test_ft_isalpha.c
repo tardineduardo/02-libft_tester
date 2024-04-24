@@ -6,7 +6,7 @@
 /*   By: eduribei <eduribei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 18:22:00 by eduribei          #+#    #+#             */
-/*   Updated: 2024/04/23 21:30:51 by eduribei         ###   ########.fr       */
+/*   Updated: 2024/04/24 11:47:11 by eduribei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,7 @@ int	main(void)
 	test_ft_isalpha('a', 0, "lowercase");
 	test_ft_isalpha('2', 1, "digit");
 	test_ft_isalpha('&', 1, "punctuation");
+	printf("\n");
+
 	return (0);
 }
