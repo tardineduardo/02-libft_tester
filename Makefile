@@ -21,9 +21,9 @@ all: test clean
 # Rule to build and run tests
 test: $(EXE)
 $(EXE): $(SRC_TEST) $(SRC_LIBFT)
-    @$(CC) $(CFLAGS) -I../ $(SRC_TEST) $(SRC_LIBFT) -o $@
-    ./$@
+	@$(CC) $(CFLAGS) -I../ $(SRC_TEST) $(SRC_LIBFT) -o $@
+	./$@
 
 # Clean up executables
 clean:
-    @rm -f $(EXE)
+	@rm -f $(EXE)
