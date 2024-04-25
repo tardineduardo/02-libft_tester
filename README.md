@@ -32,6 +32,7 @@ We are still learning how to create more complex and dynamic Makefiles, so for t
 ## Tests available
 - ft_isalpha
 - ft_isascii
+- ft_isdigit
 - ft_strlen
 - ft_atoi
 - ft_toupper
