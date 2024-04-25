@@ -12,12 +12,11 @@
 
 #include <stdio.h>
 #include <ctype.h>
-
-int	ft_isdigit(int c);
-
 #define ANSI_COLOR_RED     "\x1b[31m"
 #define ANSI_COLOR_GREEN   "\x1b[32m"
 #define ANSI_COLOR_RESET   "\x1b[0m"
+
+int	ft_isdigit(int c);
 
 void	test_ft_isdigit(int c, char *comment)
 {
@@ -31,18 +30,27 @@ void	test_ft_isdigit(int c, char *comment)
 	else if ((result == 0 && expected != 0) || (result != 0 && expected == 0))
 		printf(ANSI_COLOR_RED "[[[FAIL]]] " ANSI_COLOR_RESET);
 
-	printf("ft_isdigit > Input: < %c > (%s) | Expected: %d | Output: %d \n", c, comment, expected, result);
-
+	printf(" Input: < %c > (%s) | Expected: %d | Output: %d \n", c, comment, expected, result);
 }
 
 int	main(void)
 {
 	printf(">>>>> TESTING FT_ISDIGIT\n");
 
-	test_ft_isdigit(" ", "space");
-	test_ft_isdigit("\0", "null");
-	test_ft_isdigit("a", "lowercase letter");
-    test_ft_isdigit("9", "digit");
+	test_ft_isdigit(' ', "space");
+	test_ft_isdigit('a', "lowercase letter");
+    test_ft_isdigit('9', "digit");
+	test_ft_isdigit('8', "digit");
+	test_ft_isdigit('7', "digit");
+	test_ft_isdigit('6', "digit");
+	test_ft_isdigit('5', "digit");
+	test_ft_isdigit('4', "digit");
+	test_ft_isdigit('3', "digit");
+	test_ft_isdigit('2', "digit");
+	test_ft_isdigit('1', "digit");
+	test_ft_isdigit('0', "digit");
+	test_ft_isdigit(-1, "negative int");
+	test_ft_isdigit(-532300, "negative int");
 	printf("\n");
 
 	return (0);
