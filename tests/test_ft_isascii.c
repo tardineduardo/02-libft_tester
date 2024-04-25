@@ -6,7 +6,7 @@
 /*   By: brchaves <brchaves@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 18:22:00 by eduribei          #+#    #+#             */
-/*   Updated: 2024/04/25 10:14:21 by brchaves         ###   ########.fr       */
+/*   Updated: 2024/04/25 10:22:35 by brchaves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	main(void)
 
 	test_ft_isascii(-1, "smaller than ascii range");
 	test_ft_isascii(0, "zero");
-	test_ft_isascii(177, "bigger ascii number");
+	test_ft_isascii(127, "bigger ascii number");
     test_ft_isascii(178, "bigger than ascii range");
 	printf("\n");
 
