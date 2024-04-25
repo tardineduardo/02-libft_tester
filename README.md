@@ -37,6 +37,4 @@ We are still learning how to create more complex and dynamic Makefiles, so for t
 - ft_atoi
 - ft_toupper
 - ft_tolower
-- ft_isdigit
-- ft_isascii
   
