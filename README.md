@@ -33,3 +33,5 @@ We are still learning how to create more complex and dynamic Makefiles, so for t
 - ft_isalpha
 - ft_strlen
 - ft_atoi
+- ft_toupper
+- ft_tolower
