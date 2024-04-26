@@ -18,6 +18,9 @@ This tester checks each function individually. We are not checking the compilati
 4. Run the tests:
 `make`
 
+5. To update the existing /libft_tester folder, from inside it run:
+`git pull origin main`
+
 ## Important Notes
 We are still learning how to create more complex and dynamic Makefiles, so for this version, you need to follow stricter rules:
 - Your main libft folder can't have any `.c` files other than the ones expected by the exercise.
@@ -28,4 +31,12 @@ We are still learning how to create more complex and dynamic Makefiles, so for t
  ```
 ## Tests available
 - ft_isalpha
+- ft_isascii
+- ft_isdigit
 - ft_strlen
+- ft_atoi
+- ft_toupper
+- ft_tolower
+- ft_isdigit
+- ft_isascii
+  

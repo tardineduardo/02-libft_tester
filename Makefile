@@ -9,10 +9,13 @@ SRC = $(wildcard ../ft_*.c)
 # Convert ft_*.c filenames to executable names based on the pattern
 EXE = $(SRC:../ft_%.c=test_ft_%)
 
-.PHONY: all clean test
+# Compile source files into object files
+%.o: $(SRC_DIR)/%.c
+	$(CC) $(CFLAGS) -c $< -o $@
 
-# Default target
-all: test clean
+# Compile test files into executables
+%: $(TEST_DIR)/%.c %.o
+	$(CC) $(CFLAGS) $^ -o $@
 
 # Rule to build and run tests
 test: $(EXE)
@@ -24,6 +27,8 @@ $(EXE): test_ft_% : ../ft_%.c ./tests/test_ft_%.c
 		echo "$(RED)FAILED to compile or run test on $^$(NC)\n"; \
 	fi
 
-# Clean up executables
+# Clean executables and objects
 clean:
-	@rm -f $(EXE)
+	rm -f $(EXE_FILES) $(OBJ_FILES)
+
+.PHONY: all run clean
