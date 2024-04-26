@@ -1,15 +1,13 @@
-# Variables
-CC = gcc
-CFLAGS = -Wall -Wextra -Werror
-SRC_DIR = ../
-TEST_DIR = tests
-SRC_FILES = $(wildcard $(SRC_DIR)/ft_*.c)
-OBJ_FILES = $(patsubst $(SRC_DIR)/%.c, %.o, $(SRC_FILES))
-TEST_FILES = $(patsubst $(SRC_DIR)/ft_%.c, $(TEST_DIR)/test_ft_%.c, $(SRC_FILES))
-EXE_FILES = $(patsubst $(TEST_DIR)/%.c, %, $(TEST_FILES))
+C = gcc
+CFLAGS = -I../ -Wall -Wextra -Werror
+RED = \033[0;31m
+NC = \033[0m
 
-# Default target
-all: $(EXE_FILES)
+# Collect all ft_*.c files from parent directory
+SRC = $(wildcard ../ft_*.c)
+
+# Convert ft_*.c filenames to executable names based on the pattern
+EXE = $(SRC:../ft_%.c=test_ft_%)
 
 # Compile source files into object files
 %.o: $(SRC_DIR)/%.c
@@ -19,9 +17,15 @@ all: $(EXE_FILES)
 %: $(TEST_DIR)/%.c %.o
 	$(CC) $(CFLAGS) $^ -o $@
 
-# Run each executable
-run: $(EXE_FILES)
-	for exe in $^; do ./$$exe; done
+# Rule to build and run tests
+test: $(EXE)
+$(EXE): test_ft_% : ../ft_%.c ./tests/test_ft_%.c
+	@if $(CC) $(CFLAGS) $^ -o $@ 2> /dev/null; then \
+		echo "$^"; \
+		./$@ || true; \
+	else \
+		echo "$(RED)FAILED to compile or run test on $^$(NC)\n"; \
+	fi
 
 # Clean executables and objects
 clean:
