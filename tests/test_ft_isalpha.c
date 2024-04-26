@@ -10,6 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+
+#include "../ft_isalpha.c"
+#include "../libft.h"
+
+
+
+
 #include <stdio.h>
 #include <ctype.h>
 
