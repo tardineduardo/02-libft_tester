@@ -12,11 +12,12 @@
 
 #include <stdio.h>
 #include <ctype.h>
+#include "libft.h"
+
 #define ANSI_COLOR_RED     "\x1b[31m"
 #define ANSI_COLOR_GREEN   "\x1b[32m"
 #define ANSI_COLOR_RESET   "\x1b[0m"
 
-int	ft_isalnum(int c);
 
 void	test_ft_isalnum(int c, char *comment)
 {
