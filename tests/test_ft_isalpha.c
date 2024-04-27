@@ -6,25 +6,13 @@
 /*   By: eduribei <eduribei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 18:22:00 by eduribei          #+#    #+#             */
-/*   Updated: 2024/04/24 16:14:41 by eduribei         ###   ########.fr       */
+/*   Updated: 2024/04/27 14:17:27 by eduribei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
-#include "../ft_isalpha.c"
-#include "../libft.h"
-
-
-
-
-#include <stdio.h>
-#include <ctype.h>
+#include "tester.h"
 
 int	ft_isalpha(int c);
-
-#define ANSI_COLOR_RED     "\x1b[31m"
-#define ANSI_COLOR_GREEN   "\x1b[32m"
-#define ANSI_COLOR_RESET   "\x1b[0m"
 
 void	test_ft_isalpha(int c, char *comment)
 {
@@ -32,11 +20,11 @@ void	test_ft_isalpha(int c, char *comment)
 	int	expected = isalpha(c);
 
 	if ((result == 0) && (expected == 0)) 
-		printf(ANSI_COLOR_GREEN "[[[PASS]]] " ANSI_COLOR_RESET);
+		printf(COLOR_GREEN "[[[PASS]]] " COLOR_RESET);
 	else if ((result != 0) && (expected != 0))
-		printf(ANSI_COLOR_GREEN "[[[PASS]]] " ANSI_COLOR_RESET);
+		printf(COLOR_GREEN "[[[PASS]]] " COLOR_RESET);
 	else if ((result == 0 && expected != 0) || (result != 0 && expected == 0))
-		printf(ANSI_COLOR_RED "[[[FAIL]]] " ANSI_COLOR_RESET);
+		printf(COLOR_RED "[[[FAIL]]] " COLOR_RESET);
 
 	printf("ft_isalpha > Input: < %c > (%s) | Expected: %d | Output: %d \n", c, comment, expected, result);
 

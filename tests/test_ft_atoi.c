@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   test_ft_atoi.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: eduribei <eduribei@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/04/27 14:21:26 by eduribei          #+#    #+#             */
+/*   Updated: 2024/04/27 14:49:46 by eduribei         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "tester.h"
 
 void	test_ft_atoi(char *nptr, char *comment)
@@ -6,9 +18,9 @@ void	test_ft_atoi(char *nptr, char *comment)
 	int	expected = atoi(nptr);
 
 	if (result == expected) 
-		printf(ANSI_COLOR_GREEN "[[[PASS]]] " ANSI_COLOR_RESET);
+		printf(COLOR_GREEN "[[[PASS]]] " COLOR_RESET);
 	else
-		printf(ANSI_COLOR_RED "[[[FAIL]]] " ANSI_COLOR_RESET);
+		printf(COLOR_RED "[[[FAIL]]] " COLOR_RESET);
 
 	printf("ft_strlen > Input: <\"%s\"> (%s) | Expected: %d | Output: %d \n", nptr, comment, expected, result);
 
