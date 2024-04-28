@@ -6,7 +6,7 @@
 /*   By: eduribei <eduribei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 18:22:00 by eduribei          #+#    #+#             */
-/*   Updated: 2024/04/28 17:46:22 by eduribei         ###   ########.fr       */
+/*   Updated: 2024/04/28 17:49:40 by eduribei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	main(void)
 {
 	int		fail_counter = 0;
 	int		*counter = &fail_counter;
-	test	tests[4];
+	test	tests[7];
 
 	tests[0].input = -1;
     tests[0].comment = "smaller than ascii range";
