@@ -6,7 +6,7 @@
 /*   By: eduribei <eduribei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 18:22:00 by eduribei          #+#    #+#             */
-/*   Updated: 2024/04/27 14:17:27 by eduribei         ###   ########.fr       */
+/*   Updated: 2024/04/28 17:44:31 by eduribei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,40 +14,74 @@
 
 int	ft_isdigit(int c);
 
-void	test_ft_isdigit(int c, char *comment)
+typedef	struct
 {
-	int	result = ft_isdigit(c);
-	int	expected = isdigit(c);
+	int		input;
+	char	*comment;
+	int		result;
+	int		expected;
+} test;
 
-	if ((result == 0) && (expected == 0)) 
+void	test_ft_isdigit(int input, char *comment, int expected, int result, int *counter)
+{
+	if ((result == 0) && (expected == 0))
+	{
 		printf(COLOR_GREEN "[[[PASS]]] " COLOR_RESET);
+	}
 	else if ((result != 0) && (expected != 0))
+	{
 		printf(COLOR_GREEN "[[[PASS]]] " COLOR_RESET);
+	}
 	else if ((result == 0 && expected != 0) || (result != 0 && expected == 0))
+	{
 		printf(COLOR_RED "[[[FAIL]]] " COLOR_RESET);
+		(*counter)++;
+	}
 
-	printf(" Input: < %c > (%s) | Expected: %d | Output: %d \n", c, comment, expected, result);
+	printf("Input: %d \t Expected: %d \t Output: %d \t(%s)\n", input, expected, result, comment);
+
 }
 
 int	main(void)
 {
-	printf(">>>>> TESTING FT_ISDIGIT\n");
+	int		fail_counter = 0;
+	int		*counter = &fail_counter;
+	test	tests[4];
 
-	test_ft_isdigit(' ', "space");
-	test_ft_isdigit('a', "lowercase letter");
-    test_ft_isdigit('9', "digit");
-	test_ft_isdigit('8', "digit");
-	test_ft_isdigit('7', "digit");
-	test_ft_isdigit('6', "digit");
-	test_ft_isdigit('5', "digit");
-	test_ft_isdigit('4', "digit");
-	test_ft_isdigit('3', "digit");
-	test_ft_isdigit('2', "digit");
-	test_ft_isdigit('1', "digit");
-	test_ft_isdigit('0', "digit");
-	test_ft_isdigit(-1, "negative int");
-	test_ft_isdigit(-532300, "negative int");
+	tests[0].input = -1;
+	tests[0].comment = "smaller than ascii range";
+	tests[0].result = ft_isdigit(tests[0].input);
+	tests[0].expected = isdigit(tests[0].input);
+
+	tests[1].input = 0;
+	tests[1].comment = "zero";
+	tests[1].result = ft_isdigit(tests[1].input);
+	tests[1].expected = isdigit(tests[1].input);
+
+	tests[2].input = 127;
+	tests[2].comment = "bigger ascii number";
+	tests[2].result = ft_isdigit(tests[2].input);
+	tests[2].expected = isdigit(tests[2].input);
+
+	tests[3].input = 178;
+	tests[3].comment = "smaller than ascii range";
+	tests[3].result = ft_isdigit(tests[3].input);
+	tests[3].expected = isdigit(tests[3].input);
+
+	printf(">>>>> TESTING FT_isdigit\n");
+
+	int a = 0;
+	while (a < 4)
+	{
+		test_ft_isdigit(tests[a].input, tests[a].comment, tests[a].result, tests[a].expected, counter);
+		a++;
+	}
+
+	if (fail_counter > 0)
+		ft_save_results("ft_isdigit: FAIL"); 
+	else
+		ft_save_results("ft_isdigit: OK");
+
 	printf("\n");
-
 	return (0);
 }

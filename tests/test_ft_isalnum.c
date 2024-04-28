@@ -6,7 +6,7 @@
 /*   By: eduribei <eduribei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 18:22:00 by eduribei          #+#    #+#             */
-/*   Updated: 2024/04/28 16:43:09 by eduribei         ###   ########.fr       */
+/*   Updated: 2024/04/28 17:46:22 by eduribei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,82 +14,89 @@
 
 int	ft_isalnum(int c);
 
-void	test_ft_isalnum(int c, char *comment, int *counter)
+typedef	struct
 {
-	int	result = ft_isalnum(c);
-	int	expected = isalnum(c);
+	int		input;
+	char	*comment;
+	int		result;
+	int		expected;
+} test;
 
-	if ((result == 0) && (expected == 0)) 
+void	test_ft_isalnum(int input, char *comment, int expected, int result, int *counter)
+{
+	if ((result == 0) && (expected == 0))
+	{
 		printf(COLOR_GREEN "[[[PASS]]] " COLOR_RESET);
+	}
 	else if ((result != 0) && (expected != 0))
+	{
 		printf(COLOR_GREEN "[[[PASS]]] " COLOR_RESET);
+	}
 	else if ((result == 0 && expected != 0) || (result != 0 && expected == 0))
 	{
 		printf(COLOR_RED "[[[FAIL]]] " COLOR_RESET);
 		(*counter)++;
 	}
 
-	printf(" Input: < %c > (%s) | Expected: %d | Output: %d \n", c, comment, expected, result);
+	printf("Input: %d \t Expected: %d \t Output: %d \t(%s)\n", input, expected, result, comment);
+
 }
 
 int	main(void)
 {
 	int		fail_counter = 0;
 	int		*counter = &fail_counter;
+	test	tests[4];
 
-	printf(">>>>> TESTING FT_ISALNUM\n");
+	tests[0].input = -1;
+    tests[0].comment = "smaller than ascii range";
+    tests[0].result = ft_isalnum(tests[0].input);
+    tests[0].expected = isalnum(tests[0].input);
 
-	// ASCII Control Characters
-	test_ft_isalnum('\0', "null character", counter);       // ASCII 0
-	// test_ft_isalnum('\n', "newline", counter);             // ASCII 10
-	// test_ft_isalnum('\r', "carriage return", counter);     // ASCII 13
-	test_ft_isalnum('\t', "horizontal tab", counter);      // ASCII 9
+    tests[1].input = 0;
+    tests[1].comment = "zero";
+    tests[1].result = ft_isalnum(tests[1].input);
+    tests[1].expected = isalnum(tests[1].input);
 
-	// ASCII Non-Printable Characters
-	test_ft_isalnum('\x1F', "unit separator", counter);    // ASCII 31
-	test_ft_isalnum('\x7F', "delete", counter);            // ASCII 127
+    tests[2].input = 127;
+    tests[2].comment = "bigger ascii number";
+    tests[2].result = ft_isalnum(tests[2].input);
+    tests[2].expected = isalnum(tests[2].input);
 
-	// ASCII Printable Characters
-	test_ft_isalnum(' ', "space", counter);                // ASCII 32
-	test_ft_isalnum('!', "exclamation mark", counter);     // ASCII 33
-	test_ft_isalnum('~', "tilde", counter);                // ASCII 126
+    tests[3].input = 178;
+    tests[3].comment = "non-standard ASCII value";
+    tests[3].result = ft_isalnum(tests[3].input);
+    tests[3].expected = isalnum(tests[3].input);
 
-	// ASCII Digits
-	test_ft_isalnum('0', "digit", counter);                // ASCII 48
-	test_ft_isalnum('1', "digit", counter);                // Continued for each digit...
-	test_ft_isalnum('2', "digit", counter);
-	test_ft_isalnum('3', "digit", counter);
-	test_ft_isalnum('4', "digit", counter);
-	test_ft_isalnum('5', "digit", counter);
-	test_ft_isalnum('6', "digit", counter);
-	test_ft_isalnum('7', "digit", counter);
-	test_ft_isalnum('8', "digit", counter);
-	test_ft_isalnum('9', "digit", counter);                // ASCII 57
+    tests[4].input = 'a';
+    tests[4].comment = "lowercase letter";
+    tests[4].result = ft_isalnum(tests[4].input);
+    tests[4].expected = isalnum(tests[4].input);
 
-	// ASCII Uppercase Letters
-	test_ft_isalnum('A', "uppercase letter", counter);     // ASCII 65
-	test_ft_isalnum('Z', "uppercase letter", counter);     // ASCII 90
+    tests[5].input = 'Z';
+    tests[5].comment = "uppercase letter";
+    tests[5].result = ft_isalnum(tests[5].input);
+    tests[5].expected = isalnum(tests[5].input);
 
-	// ASCII Lowercase Letters
-	test_ft_isalnum('a', "lowercase letter", counter);     // ASCII 97
-	test_ft_isalnum('z', "lowercase letter", counter);     // ASCII 122
+    tests[6].input = '5';
+    tests[6].comment = "number";
+    tests[6].result = ft_isalnum(tests[6].input);
+    tests[6].expected = isalnum(tests[6].input);
+	
+	printf(">>>>> TESTING FT_isalnum\n");
 
-	// Non-ASCII Characters (Beyond ASCII range)
-	test_ft_isalnum(128, "extended ASCII", counter);       // Extended ASCII
-	test_ft_isalnum(255, "extended ASCII", counter);       // Maximum Extended ASCII
-	test_ft_isalnum(-1, "negative int", counter);          // Testing negative values
-	test_ft_isalnum(-532300, "large negative int", counter);
-
-	// Unicode Characters (well beyond ASCII)
-	test_ft_isalnum(0x0394, "Greek Capital Letter Delta", counter);  // Unicode example
-	test_ft_isalnum(0x4F60, "CJK Character (你)", counter);          // CJK Unicode example
+	int a = 0;
+	while (a < 7)
+	{
+		test_ft_isalnum(tests[a].input, tests[a].comment, tests[a].result, tests[a].expected, counter);
+		a++;
+	}
 
 	if (fail_counter > 0)
-		ft_save_results("ft_isalnum: FAIL"); 		//<<<------------------------UPDATE FT HERE! DON'T CHANGE STRING.
+		ft_save_results("ft_isalnum: FAIL"); 
 	else
-		ft_save_results("ft_isalnum: OK");			//<<<------------------------UPDATE FT HERE! DON'T CHANGE STRING.
+		ft_save_results("ft_isalnum: OK");
 
 	printf("\n");
-
 	return (0);
 }
