@@ -1,23 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test_ft_isdigit.c                                  :+:      :+:    :+:   */
+/*   test_ft_isalnum.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eduribei <eduribei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 18:22:00 by eduribei          #+#    #+#             */
-/*   Updated: 2024/04/24 10:28:10 by eduribei         ###   ########.fr       */
+/*   Updated: 2024/04/27 19:21:29 by eduribei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <ctype.h>
-#include "libft.h"
+#include "tester.h"
 
-#define ANSI_COLOR_RED     "\x1b[31m"
-#define ANSI_COLOR_GREEN   "\x1b[32m"
-#define ANSI_COLOR_RESET   "\x1b[0m"
-
+int	ft_isalnum(int c);
 
 void	test_ft_isalnum(int c, char *comment)
 {
@@ -25,28 +20,28 @@ void	test_ft_isalnum(int c, char *comment)
 	int	expected = isalnum(c);
 
 	if ((result == 0) && (expected == 0)) 
-		printf(ANSI_COLOR_GREEN "[[[PASS]]] " ANSI_COLOR_RESET);
+		printf(COLOR_GREEN "[[[PASS]]] " COLOR_RESET);
 	else if ((result != 0) && (expected != 0))
-		printf(ANSI_COLOR_GREEN "[[[PASS]]] " ANSI_COLOR_RESET);
+		printf(COLOR_GREEN "[[[PASS]]] " COLOR_RESET);
 	else if ((result == 0 && expected != 0) || (result != 0 && expected == 0))
-		printf(ANSI_COLOR_RED "[[[FAIL]]] " ANSI_COLOR_RESET);
+		printf(COLOR_RED "[[[FAIL]]] " COLOR_RESET);
 
 	printf(" Input: < %c > (%s) | Expected: %d | Output: %d \n", c, comment, expected, result);
 }
 
 int	main(void)
 {
-	printf(">>>>> TESTING FT_ISDIGIT\n");
+	printf(">>>>> TESTING FT_ISALNUM\n");
 
 	// ASCII Control Characters
 	test_ft_isalnum('\0', "null character");       // ASCII 0
-	test_ft_isalnum('\n', "newline");             // ASCII 10
-	test_ft_isalnum('\r', "carriage return");     // ASCII 13
+	// test_ft_isalnum('\n', "newline");             // ASCII 10
+	// test_ft_isalnum('\r', "carriage return");     // ASCII 13
 	test_ft_isalnum('\t', "horizontal tab");      // ASCII 9
 
 	// ASCII Non-Printable Characters
-//	test_ft_isalnum('\x1F', "unit separator");    // ASCII 31
-//	test_ft_isalnum('\x7F', "delete");            // ASCII 127
+	test_ft_isalnum('\x1F', "unit separator");    // ASCII 31
+	test_ft_isalnum('\x7F', "delete");            // ASCII 127
 
 	// ASCII Printable Characters
 	test_ft_isalnum(' ', "space");                // ASCII 32
@@ -80,8 +75,8 @@ int	main(void)
 	test_ft_isalnum(-532300, "large negative int");
 
 	// Unicode Characters (well beyond ASCII)
-//	test_ft_isalnum(0x0394, "Greek Capital Letter Delta");  // Unicode example
-//	test_ft_isalnum(0x4F60, "CJK Character (你)");          // CJK Unicode example
+	test_ft_isalnum(0x0394, "Greek Capital Letter Delta");  // Unicode example
+	test_ft_isalnum(0x4F60, "CJK Character (你)");          // CJK Unicode example
 
 	printf("\n");
 

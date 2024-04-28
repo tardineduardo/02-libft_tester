@@ -1,18 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test_ft_isdigit.c                                  :+:      :+:    :+:   */
+/*   test_ft_substr.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eduribei <eduribei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 18:22:00 by eduribei          #+#    #+#             */
-/*   Updated: 2024/04/24 10:28:10 by eduribei         ###   ########.fr       */
+/*   Updated: 2024/04/27 14:52:03 by eduribei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
+#include "tester.h"
 
 int	main(void)
 {
-    printf("\033[1;34mThis test is not ready yet.\033[0m\n\n");
+	printf(COLOR_BLUE "test_ft_substr - This test is not ready yet. " COLOR_RESET);
+	ft_save_results("test_ft_substr: not ready");
 }
+
+

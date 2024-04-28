@@ -1,23 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test_ft_isdigit.c                                  :+:      :+:    :+:   */
+/*   test_ft_tolower.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eduribei <eduribei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 18:22:00 by eduribei          #+#    #+#             */
-/*   Updated: 2024/04/24 10:28:10 by eduribei         ###   ########.fr       */
+/*   Updated: 2024/04/27 14:17:27 by eduribei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <ctype.h>
+#include "tester.h"
 
 int	ft_tolower(int c);
-
-#define ANSI_COLOR_RED     "\x1b[31m"
-#define ANSI_COLOR_GREEN   "\x1b[32m"
-#define ANSI_COLOR_RESET   "\x1b[0m"
 
 void	test_ft_tolower(int c, char *comment)
 {
@@ -25,9 +20,9 @@ void	test_ft_tolower(int c, char *comment)
 	int expected = tolower(c);
 
 	if (result == expected) 
-		printf(ANSI_COLOR_GREEN "[[[PASS]]] " ANSI_COLOR_RESET);
+		printf(COLOR_GREEN "[[[PASS]]] " COLOR_RESET);
 	else
-		printf(ANSI_COLOR_RED "[[[FAIL]]] " ANSI_COLOR_RESET);
+		printf(COLOR_RED "[[[FAIL]]] " COLOR_RESET);
 
 	printf("Input: <\"%d\"> (%s) | Expected: %d | Output: %d \n", c, comment, expected, result);
 
