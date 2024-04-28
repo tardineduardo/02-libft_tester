@@ -6,7 +6,7 @@
 /*   By: eduribei <eduribei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 18:22:00 by eduribei          #+#    #+#             */
-/*   Updated: 2024/04/28 15:01:40 by eduribei         ###   ########.fr       */
+/*   Updated: 2024/04/28 17:49:43 by eduribei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,18 +55,18 @@ int	main(void)
 
 	tests[1].input = 0;
 	tests[1].comment = "zero";
-	tests[1].result = ft_isascii(tests[0].input);
-	tests[1].expected = isascii(tests[0].input);
+	tests[1].result = ft_isascii(tests[1].input);
+	tests[1].expected = isascii(tests[1].input);
 
 	tests[2].input = 127;
 	tests[2].comment = "bigger ascii number";
-	tests[2].result = ft_isascii(tests[0].input);
-	tests[2].expected = isascii(tests[0].input);
+	tests[2].result = ft_isascii(tests[2].input);
+	tests[2].expected = isascii(tests[2].input);
 
 	tests[3].input = 178;
 	tests[3].comment = "smaller than ascii range";
-	tests[3].result = ft_isascii(tests[0].input);
-	tests[3].expected = isascii(tests[0].input);
+	tests[3].result = ft_isascii(tests[3].input);
+	tests[3].expected = isascii(tests[3].input);
 
 	printf(">>>>> TESTING FT_ISASCII\n");
 
