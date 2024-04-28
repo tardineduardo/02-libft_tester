@@ -6,7 +6,7 @@
 /*   By: eduribei <eduribei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 18:22:00 by eduribei          #+#    #+#             */
-/*   Updated: 2024/04/27 14:43:51 by eduribei         ###   ########.fr       */
+/*   Updated: 2024/04/28 16:37:54 by eduribei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,10 @@ void	test_ft_toupper(int c, char *comment)
 	if (result == expected) 
 		printf(COLOR_GREEN "[[[PASS]]] " COLOR_RESET);
 	else
+	{
 		printf(COLOR_RED "[[[FAIL]]] " COLOR_RESET);
-
+		(*counter)++;
+	}
 	printf("Input: <\"%d\"> (%s) | Expected: %d | Output: %d \n", c, comment, expected, result);
 
 }
