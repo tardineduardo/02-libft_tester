@@ -6,13 +6,13 @@
 /*   By: eduribei <eduribei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 18:22:00 by eduribei          #+#    #+#             */
-/*   Updated: 2024/04/27 14:17:27 by eduribei         ###   ########.fr       */
+/*   Updated: 2024/04/27 19:21:29 by eduribei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tester.h"
 
-int	ft_isalnum(int c)
+int	ft_isalnum(int c);
 
 void	test_ft_isalnum(int c, char *comment)
 {
@@ -31,17 +31,17 @@ void	test_ft_isalnum(int c, char *comment)
 
 int	main(void)
 {
-	printf(">>>>> TESTING FT_ISDIGIT\n");
+	printf(">>>>> TESTING FT_ISALNUM\n");
 
 	// ASCII Control Characters
 	test_ft_isalnum('\0', "null character");       // ASCII 0
-	test_ft_isalnum('\n', "newline");             // ASCII 10
-	test_ft_isalnum('\r', "carriage return");     // ASCII 13
+	// test_ft_isalnum('\n', "newline");             // ASCII 10
+	// test_ft_isalnum('\r', "carriage return");     // ASCII 13
 	test_ft_isalnum('\t', "horizontal tab");      // ASCII 9
 
 	// ASCII Non-Printable Characters
-//	test_ft_isalnum('\x1F', "unit separator");    // ASCII 31
-//	test_ft_isalnum('\x7F', "delete");            // ASCII 127
+	test_ft_isalnum('\x1F', "unit separator");    // ASCII 31
+	test_ft_isalnum('\x7F', "delete");            // ASCII 127
 
 	// ASCII Printable Characters
 	test_ft_isalnum(' ', "space");                // ASCII 32
@@ -75,8 +75,8 @@ int	main(void)
 	test_ft_isalnum(-532300, "large negative int");
 
 	// Unicode Characters (well beyond ASCII)
-//	test_ft_isalnum(0x0394, "Greek Capital Letter Delta");  // Unicode example
-//	test_ft_isalnum(0x4F60, "CJK Character (你)");          // CJK Unicode example
+	test_ft_isalnum(0x0394, "Greek Capital Letter Delta");  // Unicode example
+	test_ft_isalnum(0x4F60, "CJK Character (你)");          // CJK Unicode example
 
 	printf("\n");
 

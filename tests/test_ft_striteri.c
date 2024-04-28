@@ -10,11 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
+#include "tester.h"
 
 int	main(void)
 {
 	printf(COLOR_BLUE "test_ft_striteri - This test is not ready yet. " COLOR_RESET);
+	ft_save_results("test_ft_striteri: not ready");
 }
 
 
