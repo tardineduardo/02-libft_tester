@@ -24,7 +24,6 @@ void	test_ft_toupper(int c, char *comment)
 	else
 	{
 		printf(COLOR_RED "[[[FAIL]]] " COLOR_RESET);
-		(*counter)++;
 	}
 	printf("Input: <\"%d\"> (%s) | Expected: %d | Output: %d \n", c, comment, expected, result);
 
