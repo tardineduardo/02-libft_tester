@@ -74,7 +74,7 @@ int main(void)
 
 
     printf(">>>>> TESTING ft_isalpha\n");
-	printf("As long the expected and the result values are non-zero, it's a PASS.");
+	printf("As long the expected and the result values are non-zero, it's a PASS.\n");
 
 	// RUNNING TESTS
 	for (int i = 0; i < NUM_TESTS; i++)
