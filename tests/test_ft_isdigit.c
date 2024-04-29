@@ -6,7 +6,7 @@
 /*   By: eduribei <eduribei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 18:22:00 by eduribei          #+#    #+#             */
-/*   Updated: 2024/04/29 20:49:42 by eduribei         ###   ########.fr       */
+/*   Updated: 2024/04/29 21:31:31 by eduribei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ typedef struct
 void run_test(Test test, int *fail_count)
 {
     int expected = isdigit(test.input);
+
 	if ((expected == 0) && (test.result == 0))
 	{
 		printf(COLOR_GREEN "[[[PASS]]] " COLOR_RESET);
@@ -42,7 +43,7 @@ void run_test(Test test, int *fail_count)
     printf("Input: %d \t Expected: %d \t Output: %d \t(%s)\n", test.input, expected, test.result, test.comment);
 }
 
-#define NUM_TESTS 20
+#define NUM_TESTS 31
 
 int main(void)
 {
@@ -51,7 +52,18 @@ int main(void)
     Test tests[NUM_TESTS] = {
 	{0, "NULL", ft_isdigit(0)},	
     {-1, "negative integer (invalid ASCII)", ft_isdigit(-1)},
-    {0, "NULL character (ASCII)", ft_isdigit(0)},
+    {47, "/ (ASCII)", ft_isdigit(47)},
+	{48, "digit 0 (ASCII)", ft_isdigit(48)},
+	{49, "digit 1 (ASCII)", ft_isdigit(49)},
+	{50, "digit 2 (ASCII)", ft_isdigit(50)},
+	{51, "digit 3 (ASCII)", ft_isdigit(51)},
+	{52, "digit 4 (ASCII)", ft_isdigit(52)},
+	{53, "digit 5 (ASCII)", ft_isdigit(53)},
+	{54, "digit 6 (ASCII)", ft_isdigit(54)},
+	{55, "digit 7 (ASCII)", ft_isdigit(55)},
+	{56, "digit 8 (ASCII)", ft_isdigit(56)},
+	{57, "digit 9 (ASCII)", ft_isdigit(57)},
+	{58, ": (ASCII)", ft_isdigit(58)},
     {65, "uppercase letter A (ASCII)", ft_isdigit('A')},
     {90, "uppercase letter Z (ASCII)", ft_isdigit('Z')},
     {97, "lowercase letter a (ASCII)", ft_isdigit('a')},
