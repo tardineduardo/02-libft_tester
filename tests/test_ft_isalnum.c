@@ -73,7 +73,7 @@ int main(void)
 
     printf(">>>>> TESTING ft_isalnum\n");
     printf("Only looking for digits and letters within ASCII range\n");
-	printf("As long the expected and the result values are non-zero, it's a PASS.");
+	printf("As long the expected and the result values are non-zero, it's a PASS.\n");
 
 
 	// RUNNING TESTS
