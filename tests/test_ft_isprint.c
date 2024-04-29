@@ -6,7 +6,7 @@
 /*   By: eduribei <eduribei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 18:22:00 by eduribei          #+#    #+#             */
-/*   Updated: 2024/04/28 17:56:30 by eduribei         ###   ########.fr       */
+/*   Updated: 2024/04/29 13:47:18 by eduribei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int	main(void)
     tests[5].result = ft_isprint(tests[5].input);
     tests[5].expected = isprint(tests[5].input);
 
-    tests[6].input = '5';
+    tests[6].input = 'a';
     tests[6].comment = "number";
     tests[6].result = ft_isprint(tests[6].input);
     tests[6].expected = isprint(tests[6].input);
