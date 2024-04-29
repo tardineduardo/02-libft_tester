@@ -1,44 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_display_file.c                                  :+:      :+:    :+:   */
+/*   test_ft_memcp.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eduribei <eduribei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/22 18:14:07 by eduribei          #+#    #+#             */
-/*   Updated: 2024/04/23 15:10:45 by eduribei         ###   ########.fr       */
+/*   Created: 2024/04/23 18:22:00 by eduribei          #+#    #+#             */
+/*   Updated: 2024/04/27 14:52:03 by eduribei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tester.h"
 
-static int	ft_strlen(char *str)
+int	main(void)
 {
-	int	count;
-
-	count = 0;
-	while (*str++)
-	{
-		count++;
-	}
-	return (count);
+	printf(COLOR_BLUE "test_ft_memcp - This test is not ready yet. " COLOR_RESET);
+	ft_save_results("test_ft_memcp: not ready");
 }
 
-void	ft_save_results(char *str)
-{
-	int	file;
-		
-	file = open("results.txt", O_WRONLY | O_APPEND | O_CREAT, 0644);	
-	if (file != -1)
-	{
-		write(file, "[", 1);
-		write(file, str, ft_strlen(str));
-		write(file, "]", 1);		
-		write(file, ",", 2);
-	}
-	else
-	{
-		write(1, "Cannot open file.\n", 18);
-	}
-	close(file);
-}
+
