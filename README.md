@@ -30,13 +30,12 @@ We are still learning how to create more complex and dynamic Makefiles, so for t
  #include "libft.h"
  ```
 ## Tests available
+- ft_atoi
 - ft_isalpha
 - ft_isascii
 - ft_isdigit
+- ft_memset
+- ft_memcpy
 - ft_strlen
-- ft_atoi
 - ft_toupper
-- ft_tolower
-- ft_isdigit
-- ft_isascii
-  
+- ft_tolower  

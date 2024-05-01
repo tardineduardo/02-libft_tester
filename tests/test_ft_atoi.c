@@ -10,11 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tester.h"   //  <<--------------- ADD LIBRARIES TO THE HEADER FILE
+#include "tester.h"
 
-int	ft_atoi(char *c); //  <<----------- --- DECLARE THE FUNCTION TO BE TESTED
+int	ft_atoi(char *c);
 
-typedef	struct        //  <<--------------- UPDATE VARIBALES AND TYPES NEEDED
+typedef	struct
 {
 	char	*input;
 	char	*comment;
@@ -24,8 +24,6 @@ typedef	struct        //  <<--------------- UPDATE VARIBALES AND TYPES NEEDED
 
 void	test_ft_atoi(char* input, char *comment, int expected, int result, int *counter) //  <<-- UPDATE
 {
-
-	// UPDATADE THE LOGIC TO FIT YOUR TEST'S NEEDS.
 
 	if (result == expected)
 	{
@@ -37,15 +35,9 @@ void	test_ft_atoi(char* input, char *comment, int expected, int result, int *cou
 		(*counter)++;
 	}
 
-	// UPDATE VARIABLES AND TYPES
-
 	printf("Input: \"%s\" | Expected: %d | Output: %d | (%s)\n", input, expected, result, comment);
 
 }
-
-// FIRST, UPDATE THE STRUCT DECLARATION ON TOP OF PAGE
-// YOU MIGHT NEED MORE VARIABLES AND OTHER DATA TYPES
-// EDIT THE PARAMETERS OF THE FUNCTION INSIDE THE LOOP BELOW 
 
 int	main(void)
 {
@@ -98,7 +90,7 @@ int	main(void)
 	tests[7].result = ft_atoi(tests[0].input);
 	tests[7].expected = atoi(tests[0].input);
 
-	printf(">>>>> TESTING ft_atoi\n");
+	printf(COLOR_BLUE ">TESTING ft_atoi------------------------------------------------------------------------\n" COLOR_RESET);
 
 	int a = 0;
 	while (a < 8) 		//<<<------------------------UPDATE HERE!

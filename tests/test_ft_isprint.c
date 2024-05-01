@@ -42,7 +42,7 @@ void run_test(Test test, int *fail_count)
     printf("Input: %d \t Expected: %d \t Output: %d \t(%s)\n", test.input, expected, test.result, test.comment);
 }
 
-#define NUM_TESTS 156
+#define NUM_TESTS 157
 
 int main(void)
 {
@@ -204,25 +204,23 @@ int main(void)
 	{4000, "ী (Bengali Vowel Sign Ii)", ft_isprint(4000)},
 	{4001, "ু (Bengali Vowel Sign U)", ft_isprint(4001)},
 	{5000, "ᚠ (Runic Letter Fehu Feoh Fe F)", ft_isprint(5000)},
-	{5001, "ᚡ (Runic Letter V)", ft_isprint(5001)}
+	{5001, "ᚡ (Runic Letter V)", ft_isprint(5001)},
+    {0x1F600, "Emoji (grinning face) (Unicode)", ft_isprint(0x1F600)}
 	};
 
-    printf(">>>>> TESTING ft_isprint\n");
+	printf(COLOR_BLUE ">TESTING ft_isprint------------------------------------------------------------------------\n" COLOR_RESET);
     printf("Here I'm testing for extended ASCII (0-255) ISO-8859-1 and beyond.\n");
-	printf("As long the expected and the result values are non-zero, it's a PASS.");
-
+	printf("As long the expected and the result values are non-zero, it's a PASS.\n");
 
 	// RUNNING TESTS
 	for (int i = 0; i < NUM_TESTS; i++)
         run_test(tests[i], &fail_counter);
-
 
 	// SAVING RESULTS
     if (fail_counter > 0)
         ft_save_results("ft_isprint: FAIL");
     else
         ft_save_results("ft_isprint: OK");
-
 
     printf("\n");
     return (0);

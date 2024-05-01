@@ -29,7 +29,7 @@ void	test_ft_strlen(char* c, int expected, char *comment)
 
 int	main(void)
 {
-	printf(">>>>> TESTING FT_STRLEN\n");
+	printf(COLOR_BLUE ">TESTING ft_strlen------------------------------------------------------------------------\n" COLOR_RESET);
 	test_ft_strlen("batatinha quando nasce...", 25, "Normal string");
 	test_ft_strlen("", 0, "Empty string");
 	test_ft_strlen("1", 1, "String with one char");
