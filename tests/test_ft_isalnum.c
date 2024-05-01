@@ -71,11 +71,10 @@ int main(void)
     {0x1F600, "Emoji (grinning face) (Unicode)", ft_isalnum(0x1F600)}  // Unicode emoji; should remain unchanged
 	};
 
+
 	printf(COLOR_BLUE ">TESTING ft_isalnum------------------------------------------------------------------------\n" COLOR_RESET);
     printf("Comparing ft_isalnum (result) with isalnum/ctype.h (expected).\n");
     printf("Know issue: depending on the environment where the test is run (ex: github codespace),\nisalnum/ctype.h can return true for emojis.\n");
-	printf("As long the expected and the result values are non-zero, it's a PASS.\n");
-
 
 	// RUNNING TESTS
 	for (int i = 0; i < NUM_TESTS; i++)

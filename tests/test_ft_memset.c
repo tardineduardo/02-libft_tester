@@ -85,6 +85,7 @@ void run_test(Test test, int *fail_count)
 }
 
 
+
 #define NUM_TESTS 5
 
 int main(void)
@@ -120,6 +121,7 @@ int main(void)
 	};
 
 	printf(COLOR_BLUE ">TESTING ft_memset------------------------------------------------------------------------\n" COLOR_RESET);
+
 
 	// RUNNING TESTS
 	for (int i = 0; i < NUM_TESTS; i++)

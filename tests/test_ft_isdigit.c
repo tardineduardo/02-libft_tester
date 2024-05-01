@@ -84,6 +84,7 @@ int main(void)
 	};
 
 	printf(COLOR_BLUE ">TESTING ft_isdigit------------------------------------------------------------------------\n" COLOR_RESET);
+
 	printf("As long the expected and the result values are non-zero, it's a PASS.\n");
 
 	// RUNNING TESTS

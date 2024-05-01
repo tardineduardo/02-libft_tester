@@ -212,6 +212,7 @@ int main(void)
 
 	printf(COLOR_BLUE ">TESTING ft_isascii------------------------------------------------------------------------\n" COLOR_RESET);
     printf("Here I'm testing as input ASCII, extended ASCII (128-255) ISO-8859-1 and beyond.\n");
+
 	printf("As long the expected and the result values are non-zero, it's a PASS.\n");
 
 	// RUNNING TESTS
