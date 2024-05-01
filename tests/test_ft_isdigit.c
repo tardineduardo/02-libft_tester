@@ -6,7 +6,7 @@
 /*   By: eduribei <eduribei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 18:22:00 by eduribei          #+#    #+#             */
-/*   Updated: 2024/04/29 21:31:31 by eduribei         ###   ########.fr       */
+/*   Updated: 2024/04/29 23:23:55 by eduribei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ typedef struct
 } Test;
 
 // Function to execute and print test results
-void run_test(Test test, int *fail_count)
+static void run_test(Test test, int *fail_count)
 {
     int expected = isdigit(test.input);
 
@@ -83,8 +83,8 @@ int main(void)
     {0x1F600, "Emoji (grinning face) (Unicode)", ft_isdigit(0x1F600)}
 	};
 
-    printf(">>>>> TESTING ft_isdigit\n");
-    printf("Only looking for digits and letters within ASCII range\n");
+	printf(COLOR_BLUE ">TESTING ft_isdigit------------------------------------------------------------------------\n" COLOR_RESET);
+
 	printf("As long the expected and the result values are non-zero, it's a PASS.\n");
 
 	// RUNNING TESTS

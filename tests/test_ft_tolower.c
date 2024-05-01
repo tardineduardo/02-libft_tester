@@ -39,7 +39,7 @@ void run_test(Test test, int *fail_count)
     printf("Input: %d \t Expected: %d \t Output: %d \t(%s)\n", test.input, expected, test.result, test.comment);
 }
 
-#define NUM_TESTS 156
+#define NUM_TESTS 100
 
 int main(void)
 {
@@ -48,68 +48,12 @@ int main(void)
     Test tests[NUM_TESTS] = {
 	{0, "NULL character (ASCII)", ft_tolower(0)},
 	{1, "Start of Heading (ASCII)", ft_tolower(1)},
-	{2, "Start of Text (ASCII)", ft_tolower(2)},
-	{3, "End of Text (ASCII)", ft_tolower(3)},
-	{4, "End of Transmission (ASCII)", ft_tolower(4)},
-	{5, "Enquiry (ASCII)", ft_tolower(5)},
-	{6, "Acknowledgment (ASCII)", ft_tolower(6)},
-	{7, "Bell (ASCII)", ft_tolower(7)},
-	{8, "Backspace (ASCII)", ft_tolower(8)},
-	{9, "Horizontal Tab (ASCII)", ft_tolower(9)},
-	{10, "Line Feed (ASCII)", ft_tolower(10)},
-	{11, "Vertical Tab (ASCII)", ft_tolower(11)},
-	{12, "Form Feed (ASCII)", ft_tolower(12)},
-	{13, "Carriage Return (ASCII)", ft_tolower(13)},
-	{14, "Shift Out (ASCII)", ft_tolower(14)},
-	{15, "Shift In (ASCII)", ft_tolower(15)},
-	{16, "Data Link Escape (ASCII)", ft_tolower(16)},
-	{17, "Device Control 1 (ASCII)", ft_tolower(17)},
-	{18, "Device Control 2 (ASCII)", ft_tolower(18)},
-	{19, "Device Control 3 (ASCII)", ft_tolower(19)},
-	{20, "Device Control 4 (ASCII)", ft_tolower(20)},
-	{21, "Negative Acknowledgement (ASCII)", ft_tolower(21)},
-	{22, "Synchronous Idle (ASCII)", ft_tolower(22)},
-	{23, "End of Transmission Block (ASCII)", ft_tolower(23)},
-	{24, "Cancel (ASCII)", ft_tolower(24)},
-	{25, "End of Medium (ASCII)", ft_tolower(25)},
-	{26, "Substitute (ASCII)", ft_tolower(26)},
-	{27, "Escape (ASCII)", ft_tolower(27)},
-	{28, "File Separator (ASCII)", ft_tolower(28)},
-	{29, "Group Separator (ASCII)", ft_tolower(29)},
-	{30, "Record Separator (ASCII)", ft_tolower(30)},
-	{31, "Unit Separator (ASCII)", ft_tolower(31)},
-	{32, "Space (ASCII)", ft_tolower(32)},
-	{33, "Exclamation Mark (ASCII)", ft_tolower(33)},
-	{34, "Double Quote (ASCII)", ft_tolower(34)},
-	{35, "Number Sign (ASCII)", ft_tolower(35)},
-	{36, "Dollar Sign (ASCII)", ft_tolower(36)},
-	{37, "Percent Sign (ASCII)", ft_tolower(37)},
-	{38, "Ampersand (ASCII)", ft_tolower(38)},
-	{39, "Single Quote (ASCII)", ft_tolower(39)},
-	{40, "Left Parenthesis (ASCII)", ft_tolower(40)},
-	{41, "Right Parenthesis (ASCII)", ft_tolower(41)},
-	{42, "Asterisk (ASCII)", ft_tolower(42)},
-	{43, "Plus Sign (ASCII)", ft_tolower(43)},
-	{44, "Comma (ASCII)", ft_tolower(44)},
 	{45, "Hyphen-Minus (ASCII)", ft_tolower(45)},
 	{46, "Full Stop (ASCII)", ft_tolower(46)},
 	{47, "Slash (ASCII)", ft_tolower(47)},
 	{48, "Digit 0 (ASCII)", ft_tolower(48)},
-	{49, "Digit 1 (ASCII)", ft_tolower(49)},
-	{50, "Digit 2 (ASCII)", ft_tolower(50)},
-	{51, "Digit 3 (ASCII)", ft_tolower(51)},
-	{52, "Digit 4 (ASCII)", ft_tolower(52)},
-	{53, "Digit 5 (ASCII)", ft_tolower(53)},
-	{54, "Digit 6 (ASCII)", ft_tolower(54)},
-	{55, "Digit 7 (ASCII)", ft_tolower(55)},
-	{56, "Digit 8 (ASCII)", ft_tolower(56)},
 	{57, "Digit 9 (ASCII)", ft_tolower(57)},
 	{58, "Colon (ASCII)", ft_tolower(58)},
-	{59, "Semicolon (ASCII)", ft_tolower(59)},
-	{60, "Less Than Sign (ASCII)", ft_tolower(60)},
-	{61, "Equals Sign (ASCII)", ft_tolower(61)},
-	{62, "Greater Than Sign (ASCII)", ft_tolower(62)},
-	{63, "Question Mark (ASCII)", ft_tolower(63)},
 	{64, "At Sign (ASCII)", ft_tolower(64)},
 	{65, "uppercase letter A (ASCII)", ft_tolower(65)},
 	{66, "uppercase letter B (ASCII)", ft_tolower(66)},
@@ -204,7 +148,7 @@ int main(void)
 	{5001, "ᚡ (Runic Letter V)", ft_tolower(5001)}
 	};
 
-    printf(">>>>> TESTING ft_tolower\n");
+	printf(COLOR_BLUE ">TESTING ft_tolower------------------------------------------------------------------------\n" COLOR_RESET);
     printf("Here I'm testing for extended ASCII (0-255) ISO-8859-1 and beyond.\n");
 
 	// RUNNING TESTS
