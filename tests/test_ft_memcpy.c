@@ -1,35 +1,21 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   test_ft_memcpy.c                                   :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: eduribei <eduribei@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/23 18:22:00 by eduribei          #+#    #+#             */
-/*   Updated: 2024/04/27 14:52:03 by eduribei         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "tester.h"
-
-void *ft_memcpy(void *dest, const void *src, size_t n);
 
 typedef struct
 {
-	void	*array_original;
-	void	*array_destiny;
-	void 	*array_result_original_before;
-	void	*array_result_original_after;
-	void 	*array_result_destiny_after;
-	void 	*array_expected_original_before;
-	void 	*array_expected_original_after;
-	void 	*array_expected_destiny_after;
-	void 	*result_pointer_log;
+	void	*test_src;
+	void	*test_dest;
+	void	*control_src;
+	void	*control_dest;
+	void	*pointer_log;
 	size_t	size;
-    char	*comment;
-    void	*result;
+	char	*comment;
+	void	*result;
+	void	*expected;
 } Test;
 
+void *ft_memset(void *s, int c, size_t n);
+
+void *ft_memcpy(void *dest, const void *src, size_t n);
 
 static char	are_sources_intact(char *expected, char *result, size_t n) 
 {
@@ -42,7 +28,6 @@ static char	are_sources_intact(char *expected, char *result, size_t n)
   	}
   	return ('Y');
 }
-
 
 static char	are_arrays_equal(char *expected, char *result, size_t n) 
 {
@@ -74,49 +59,55 @@ static void	print_array_hex(void *array, size_t n)
 		printf("%02x ", casted[a]);
 }
 
-// static void	print_array(void *array, size_t n) 
-// {
-// 	size_t a;
-// 	char *casted = (char*)array;
-// 	printf("\"");
-// 	for(a = 0; a < n; a++)
-// 		printf("%c", casted[a]);
-// 	printf("\"");
-// }
+static void	print_array(void *array, size_t n) 
+{
+	size_t a;
+	char *casted = (char*)array;
+	printf("\"");
+	for(a = 0; a < n; a++)
+		printf("%c", casted[a]);
+	printf("\"");
+}
 
 // Function to execute and print test results
 void run_test(Test test, int *fail_count)
 {
-    void *expected = memcpy(test.array_expected_destiny_after, test.array_expected_original_after, test.size);
+	printf(COLOR_YELLOW "%s\n" COLOR_RESET, test.comment);
 
-	printf("%s\n", test.comment);
-
-	printf("source in HEX:\t\t\t");
-	print_array_hex(test.array_original, 35);
+	printf("src expected:\t");
+	print_array(test.control_src, 25);
 	printf("\n");
-	printf("dest in HEX:\t\t\t");
-	print_array_hex(test.array_destiny, 35);
+	printf("src result:\t");
+	print_array(test.test_src, 25);
 	printf("\n");
-
-	printf("source result in HEX:\t\t");
-	print_array_hex(test.array_result_original_after, 35);
+	printf("src expected (hex):\t");
+	print_array_hex(test.control_src, 25);
 	printf("\n");
-	printf("source expected in HEX:\t\t");
-	print_array_hex(test.array_expected_original_after, 35);
+	printf("src result (hex):\t");
+	print_array_hex(test.test_src, 25);
 	printf("\n");
 
-	printf("dest result in HEX: \t\t");
-	print_array_hex(test.array_result_destiny_after, 35);
+	printf("dest expected:\t");
+	print_array(test.control_dest, 25);
 	printf("\n");
-	printf("dest expected in HEX:\t\t");
-	print_array_hex(test.array_expected_destiny_after, 35);
+	printf("dest result:\t");
+	print_array(test.test_dest, 25);
+	printf("\n");
+	printf("dest expected (hex):\t");
+	print_array_hex(test.control_dest, 25);
+	printf("\n");
+	printf("dest result (hex):\t");
+	print_array_hex(test.test_dest, 25);
 	printf("\n");
 
-	printf("Is the source data intact?\t\t\t(Expected: Y) ---> %c\n", are_sources_intact(test.array_expected_original_after, test.array_result_original_after, test.size));
-	printf("Is the target data what it's supposed to be?\t(Expected: Y) ---> %c\n", are_arrays_equal(expected, test.result, test.size));
-	printf("The returned pointer points to the right place?\t(Expected: Y) ---> %c", are_pointers_equal(test.array_result_destiny_after, test.result_pointer_log));
+	printf("Is the source data intact?\t\t\t(Expected: Y) ---> %c\n", are_sources_intact(test.test_src, test.control_src, test.size));
+	printf("Is the target data what it's supposed to be?\t(Expected: Y) ---> %c\n", are_arrays_equal(test.expected, test.result, test.size));
+	printf("The returned pointer points to the right place?\t(Expected: Y) ---> %c", are_pointers_equal(test.test_dest, test.pointer_log));
 
-	if ((are_arrays_equal(expected, test.result, test.size) == 'Y') && (are_pointers_equal(test.array_result_destiny_after, test.result_pointer_log) == 'Y') && (are_sources_intact(test.array_expected_original_after, test.array_result_original_after, test.size)) == 'Y')
+
+	if ((are_arrays_equal(test.expected, test.result, test.size) == 'Y') &&
+		(are_pointers_equal(test.test_dest, test.pointer_log) == 'Y') &&
+		(are_sources_intact(test.test_src, test.control_src, test.size)) == 'Y')
 	{
 		printf(COLOR_GREEN "\n[[[PASS]]]\n" COLOR_RESET);
 	}
@@ -130,33 +121,96 @@ void run_test(Test test, int *fail_count)
 }
 
 
-#define NUM_TESTS 3
+#define NUM_TESTS 4
 
 int main(void)
 {
     int fail_counter = 0;
 
-    char a_original[35] = {"1234567890abcdefghijklmnopqrs"};
-    char a_destiny[35] = {"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"};
 
-    char a_result_original_before[35] = {"1234567890abcdefghijklmnopqrs"};
-    char a_result_original_after[35] = {"1234567890abcdefghijklmnopqrs"};
-    char a_result_destiny_after[35] = {"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"};
 
-    char a_expected_original_before[35] = {"1234567890abcdefghijklmnopqrs"};
-    char a_expected_original_after[35] = {"1234567890abcdefghijklmnopqrs"};
-    char a_expected_destiny_after[35] = {"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"};
 
-    char *a_result_pointer_log = a_result_destiny_after;
+	char a_test_src[25] = {"abcdefghij\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0"};
+	char a_test_dest[25] = {"1234567890\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0"};
+	char a_control_src[25] = {"abcdefghij\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0"};
+	char a_control_dest[25] = {"1234567890\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0"};
+	char *a_expected = memcpy(a_control_dest, a_control_src, 5);
+	char *a_result = ft_memcpy(a_test_dest, a_test_src, 5);
 
-    Test tests[NUM_TESTS] = {
-        {a_original, a_destiny, a_result_original_before, a_result_original_after, a_result_destiny_after, a_expected_original_before, a_expected_original_after, a_expected_destiny_after, a_result_pointer_log, 6, "char src[35] = {\"1234567890abcdefghijklmnopqrs\"} char dest[35] = {\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"} Copy 6 bytes from non-overlapping buffers.", ft_memcpy(a_result_destiny_after, a_result_original_after, 6)},
-        {a_original, a_destiny, a_result_original_before, a_result_original_after, a_result_destiny_after, a_expected_original_before, a_expected_original_after, a_expected_destiny_after, a_result_pointer_log, 0, "char src[35] = {\"1234567890abcdefghijklmnopqrs\"} char dest[35] = {\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"} Zero-length copy, should not alter the destination.", ft_memcpy(a_result_destiny_after, a_result_original_after, 0)},
-        {a_original, a_destiny, a_result_original_before, a_result_original_after, a_result_destiny_after, a_expected_original_before, a_expected_original_after, a_expected_destiny_after, a_result_pointer_log, 35, "char src[35] = {\"1234567890abcdefghijklmnopqrs\"} char dest[35] = {\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"} Full buffer copy, check for any overflow.", ft_memcpy(a_result_destiny_after, a_result_original_after, 35)},
-    };
+	char b_test_src[25] = {"1234567890\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0"};
+	char *b_test_dest = &b_test_src[2];
+	char b_control_src[25] = {"1234567890\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0"};
+	char *b_control_dest = &b_control_src[2];
+	char *b_expected = memcpy(b_control_dest, b_control_src, 7);
+	char *b_result = ft_memcpy(b_test_dest, b_test_src, 7);
+
+	char c_test_src[25] = {"1234567890\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0"};
+	char *c_test_dest = &c_test_src[1];
+	char c_control_src[25] = {"1234567890\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0"};
+	char *c_control_dest = &c_control_src[1];
+	char *c_expected = memcpy(c_control_dest, c_control_src, 2);
+	char *c_result = ft_memcpy(c_test_dest, c_test_src, 2);
+
+	char d_test_dest[25] = {"thelazybrownfox\0\0\0\0\0\0\0\0\0\0"};
+	char *d_test_src = &d_test_dest[6];
+	char d_control_dest[25] = {"thelazybrownfox\0\0\0\0\0\0\0\0\0\0"};
+	char *d_control_src = &d_control_dest[6];
+	char *d_expected = memcpy(d_control_dest, d_control_src, 6);
+	char *d_result = ft_memcpy(d_test_dest, d_test_src, 6);
+
+
+
+Test tests[NUM_TESTS] = {
+{
+    a_test_src,
+    a_test_dest,
+    a_control_src,
+    a_control_dest,
+    a_test_dest,
+    5,
+    "src[25] = {\"1234567890\"} | dest[25] = {\"1234567890\"}\nft_memcpy(dest, src, 5) | Moving 5 bytes, no ovelap.",
+	a_expected,
+	a_result,
+    },
+{
+    b_test_src,
+    b_test_dest,
+    b_control_src,
+    b_control_dest,
+    b_test_dest,
+    7,
+    "src[25] = {\"1234567890\"} | dest = src[2]\"}\nft_memcpy(dest, src, 7) | Moving 7 bytes, with ovelap, src < dest.",
+	b_expected,
+	b_result,
+    },
+{
+    c_test_src,
+    c_test_dest,
+    c_control_src,
+    c_control_dest,
+    c_test_dest,
+    2,
+    "src[25] = {\"1234567890\"} | dest = src[1]\"}\nft_memcpy(dest, src, 2) | Moving 2 bytes, with ovelap, src < dest.",
+	c_expected,
+	c_result,
+    },
+{
+    d_test_src,
+    d_test_dest,
+    d_control_src,
+    d_control_dest,
+    d_test_dest,
+    6,
+    "dest[25] = {\"thelazybrownfox\"} | src = dest[6]\"}\nft_memcpy(dest, src, 6) | Moving 6 bytes, with ovelap, src > dest.",
+	d_expected,
+	d_result,
+    }
+};
 
 	printf(COLOR_BLUE ">TESTING ft_memcpy------------------------------------------------------------------------\n" COLOR_RESET);
-	// printf("XXXXXXXXXXXX \n");
+	printf("For the uninitialized values of the arrays, the test might show garbage values.\n\n");
+	printf(COLOR_RED "IMPORTANT: ");
+	printf("This test compares the behavior of ft_memcpy (result) with string.h/memcpy (expected).\nIt\'s the exact same test applied to memmove, but memcpy is *NOT* supposed to handle overlapping.\nDepending on the compiler used, memcpy will automatically behave like memmove and handle overlapping.\nIn this case, it\'s expected that test cases 2 and 3 (where src < dest) will FAIL.\n\n" COLOR_RESET);
 
 	// RUNNING TESTS
 	for (int i = 0; i < NUM_TESTS; i++)
@@ -168,8 +222,6 @@ int main(void)
     else
         ft_save_results("ft_memcpy: OK");
 
-
     printf("\n");
     return (0);
 }
-
