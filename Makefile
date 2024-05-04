@@ -60,7 +60,7 @@ $(EXEC): $(OBJ_T) $(NAMEL)
 	@./$@
 
 results:
-	@awk 'BEGIN { printf "$(YELLOW)" } { print $$0 } END { printf "$(NC)" }' messages/m3.txt
+	@awk 'BEGIN { printf "$(BLUE)" } { print $$0 } END { printf "$(NC)" }' messages/m3.txt
 	@echo "\n"
 	@awk 'BEGIN { RS = ","; ORS = " " } \
 	{ \
