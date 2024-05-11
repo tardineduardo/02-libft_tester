@@ -6,7 +6,7 @@
 /*   By: eduribei <eduribei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 18:22:00 by eduribei          #+#    #+#             */
-/*   Updated: 2024/04/29 20:50:24 by eduribei         ###   ########.fr       */
+/*   Updated: 2024/04/29 18:51:10 by eduribei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,203 +18,375 @@ typedef struct
 {
     int input;
     char *comment;
-    int result;
 } Test;
 
+
+typedef struct failed_test_node
+{
+    Test test;
+    struct failed_test_node *next;
+} FailedTestNode;
+
 // Function to execute and print test results
-void run_test(Test test, int *fail_count)
+void run_test(Test test, FailedTestNode **failed_tests, int *fail_count)
 {
     int expected = isprint(test.input);
-	if ((test.result == 0) && (expected == 0))
-	{
-		printf(COLOR_GREEN "[[[PASS]]] " COLOR_RESET);
-	}
-	else if ((test.result != 0) && (expected != 0))
-	{
-		printf(COLOR_GREEN "[[[PASS]]] " COLOR_RESET);
-	}
-	else
-	{
-		printf(COLOR_RED "[[[FAIL]]] " COLOR_RESET);
-		(*fail_count)++;
-	}
+    int result = ft_isprint(test.input);
 
-    printf("Input: %d \t Expected: %d \t Output: %d \t(%s)\n", test.input, expected, test.result, test.comment);
+    if ((result == 0) && (expected == 0))
+    {
+        printf(COLOR_GREEN "%d " COLOR_RESET, test.input);
+    }
+    else if ((result != 0) && (expected != 0))
+    {
+        printf(COLOR_GREEN "%d " COLOR_RESET, test.input);
+    }
+    else
+    {
+        printf(COLOR_RED "(%d) " COLOR_RESET, test.input);
+        FailedTestNode *new_node = malloc(sizeof(FailedTestNode));
+        new_node->test = test; // the test that failed
+        new_node->next = *failed_tests;
+        *failed_tests = new_node;
+        (*fail_count)++;
+    }
 }
 
-#define NUM_TESTS 157
+#define NUM_TESTS 256
 
 int main(void)
 {
     int fail_counter = 0;
 
+	FailedTestNode *failed_tests = NULL;
+
     Test tests[NUM_TESTS] = {
-	{0, "NULL character (ASCII)", ft_isprint(0)},
-	{1, "Start of Heading (ASCII)", ft_isprint(1)},
-	{2, "Start of Text (ASCII)", ft_isprint(2)},
-	{3, "End of Text (ASCII)", ft_isprint(3)},
-	{4, "End of Transmission (ASCII)", ft_isprint(4)},
-	{5, "Enquiry (ASCII)", ft_isprint(5)},
-	{6, "Acknowledgment (ASCII)", ft_isprint(6)},
-	{7, "Bell (ASCII)", ft_isprint(7)},
-	{8, "Backspace (ASCII)", ft_isprint(8)},
-	{9, "Horizontal Tab (ASCII)", ft_isprint(9)},
-	{10, "Line Feed (ASCII)", ft_isprint(10)},
-	{11, "Vertical Tab (ASCII)", ft_isprint(11)},
-	{12, "Form Feed (ASCII)", ft_isprint(12)},
-	{13, "Carriage Return (ASCII)", ft_isprint(13)},
-	{14, "Shift Out (ASCII)", ft_isprint(14)},
-	{15, "Shift In (ASCII)", ft_isprint(15)},
-	{16, "Data Link Escape (ASCII)", ft_isprint(16)},
-	{17, "Device Control 1 (ASCII)", ft_isprint(17)},
-	{18, "Device Control 2 (ASCII)", ft_isprint(18)},
-	{19, "Device Control 3 (ASCII)", ft_isprint(19)},
-	{20, "Device Control 4 (ASCII)", ft_isprint(20)},
-	{21, "Negative Acknowledgement (ASCII)", ft_isprint(21)},
-	{22, "Synchronous Idle (ASCII)", ft_isprint(22)},
-	{23, "End of Transmission Block (ASCII)", ft_isprint(23)},
-	{24, "Cancel (ASCII)", ft_isprint(24)},
-	{25, "End of Medium (ASCII)", ft_isprint(25)},
-	{26, "Substitute (ASCII)", ft_isprint(26)},
-	{27, "Escape (ASCII)", ft_isprint(27)},
-	{28, "File Separator (ASCII)", ft_isprint(28)},
-	{29, "Group Separator (ASCII)", ft_isprint(29)},
-	{30, "Record Separator (ASCII)", ft_isprint(30)},
-	{31, "Unit Separator (ASCII)", ft_isprint(31)},
-	{32, "Space (ASCII)", ft_isprint(32)},
-	{33, "Exclamation Mark (ASCII)", ft_isprint(33)},
-	{34, "Double Quote (ASCII)", ft_isprint(34)},
-	{35, "Number Sign (ASCII)", ft_isprint(35)},
-	{36, "Dollar Sign (ASCII)", ft_isprint(36)},
-	{37, "Percent Sign (ASCII)", ft_isprint(37)},
-	{38, "Ampersand (ASCII)", ft_isprint(38)},
-	{39, "Single Quote (ASCII)", ft_isprint(39)},
-	{40, "Left Parenthesis (ASCII)", ft_isprint(40)},
-	{41, "Right Parenthesis (ASCII)", ft_isprint(41)},
-	{42, "Asterisk (ASCII)", ft_isprint(42)},
-	{43, "Plus Sign (ASCII)", ft_isprint(43)},
-	{44, "Comma (ASCII)", ft_isprint(44)},
-	{45, "Hyphen-Minus (ASCII)", ft_isprint(45)},
-	{46, "Full Stop (ASCII)", ft_isprint(46)},
-	{47, "Slash (ASCII)", ft_isprint(47)},
-	{48, "Digit 0 (ASCII)", ft_isprint(48)},
-	{49, "Digit 1 (ASCII)", ft_isprint(49)},
-	{50, "Digit 2 (ASCII)", ft_isprint(50)},
-	{51, "Digit 3 (ASCII)", ft_isprint(51)},
-	{52, "Digit 4 (ASCII)", ft_isprint(52)},
-	{53, "Digit 5 (ASCII)", ft_isprint(53)},
-	{54, "Digit 6 (ASCII)", ft_isprint(54)},
-	{55, "Digit 7 (ASCII)", ft_isprint(55)},
-	{56, "Digit 8 (ASCII)", ft_isprint(56)},
-	{57, "Digit 9 (ASCII)", ft_isprint(57)},
-	{58, "Colon (ASCII)", ft_isprint(58)},
-	{59, "Semicolon (ASCII)", ft_isprint(59)},
-	{60, "Less Than Sign (ASCII)", ft_isprint(60)},
-	{61, "Equals Sign (ASCII)", ft_isprint(61)},
-	{62, "Greater Than Sign (ASCII)", ft_isprint(62)},
-	{63, "Question Mark (ASCII)", ft_isprint(63)},
-	{64, "At Sign (ASCII)", ft_isprint(64)},
-	{65, "uppercase letter A (ASCII)", ft_isprint(65)},
-	{66, "uppercase letter B (ASCII)", ft_isprint(66)},
-	{67, "uppercase letter C (ASCII)", ft_isprint(67)},
-	{68, "uppercase letter D (ASCII)", ft_isprint(68)},
-	{69, "uppercase letter E (ASCII)", ft_isprint(69)},
-	{70, "uppercase letter F (ASCII)", ft_isprint(70)},
-	{71, "uppercase letter G (ASCII)", ft_isprint(71)},
-	{72, "uppercase letter H (ASCII)", ft_isprint(72)},
-	{73, "uppercase letter I (ASCII)", ft_isprint(73)},
-	{74, "uppercase letter J (ASCII)", ft_isprint(74)},
-	{75, "uppercase letter K (ASCII)", ft_isprint(75)},
-	{76, "uppercase letter L (ASCII)", ft_isprint(76)},
-	{77, "uppercase letter M (ASCII)", ft_isprint(77)},
-	{78, "uppercase letter N (ASCII)", ft_isprint(78)},
-	{79, "uppercase letter O (ASCII)", ft_isprint(79)},
-	{80, "uppercase letter P (ASCII)", ft_isprint(80)},
-	{81, "uppercase letter Q (ASCII)", ft_isprint(81)},
-	{82, "uppercase letter R (ASCII)", ft_isprint(82)},
-	{83, "uppercase letter S (ASCII)", ft_isprint(83)},
-	{84, "uppercase letter T (ASCII)", ft_isprint(84)},
-	{85, "uppercase letter U (ASCII)", ft_isprint(85)},
-	{86, "uppercase letter V (ASCII)", ft_isprint(86)},
-	{87, "uppercase letter W (ASCII)", ft_isprint(87)},
-	{88, "uppercase letter X (ASCII)", ft_isprint(88)},
-	{89, "uppercase letter Y (ASCII)", ft_isprint(89)},
-	{90, "uppercase letter Z (ASCII)", ft_isprint(90)},
-	{91, "Left Square Bracket (ASCII)", ft_isprint(91)},
-	{92, "Backslash (ASCII)", ft_isprint(92)},
-	{93, "Right Square Bracket (ASCII)", ft_isprint(93)},
-	{94, "Circumflex Accent (ASCII)", ft_isprint(94)},
-	{95, "Underscore (ASCII)", ft_isprint(95)},
-	{96, "Grave Accent (ASCII)", ft_isprint(96)},
-	{97, "lowercase letter a (ASCII)", ft_isprint(97)},
-	{98, "lowercase letter b (ASCII)", ft_isprint(98)},
-	{99, "lowercase letter c (ASCII)", ft_isprint(99)},
-	{100, "lowercase letter d (ASCII)", ft_isprint(100)},
-	{101, "lowercase letter e (ASCII)", ft_isprint(101)},
-	{102, "lowercase letter f (ASCII)", ft_isprint(102)},
-	{103, "lowercase letter g (ASCII)", ft_isprint(103)},
-	{104, "lowercase letter h (ASCII)", ft_isprint(104)},
-	{105, "lowercase letter i (ASCII)", ft_isprint(105)},
-	{106, "lowercase letter j (ASCII)", ft_isprint(106)},
-	{107, "lowercase letter k (ASCII)", ft_isprint(107)},
-	{108, "lowercase letter l (ASCII)", ft_isprint(108)},
-	{109, "lowercase letter m (ASCII)", ft_isprint(109)},
-	{110, "lowercase letter n (ASCII)", ft_isprint(110)},
-	{111, "lowercase letter o (ASCII)", ft_isprint(111)},
-	{112, "lowercase letter p (ASCII)", ft_isprint(112)},
-	{113, "lowercase letter q (ASCII)", ft_isprint(113)},
-	{114, "lowercase letter r (ASCII)", ft_isprint(114)},
-	{115, "lowercase letter s (ASCII)", ft_isprint(115)},
-	{116, "lowercase letter t (ASCII)", ft_isprint(116)},
-	{117, "lowercase letter u (ASCII)", ft_isprint(117)},
-	{118, "lowercase letter v (ASCII)", ft_isprint(118)},
-	{119, "lowercase letter w (ASCII)", ft_isprint(119)},
-	{120, "lowercase letter x (ASCII)", ft_isprint(120)},
-	{121, "lowercase letter y (ASCII)", ft_isprint(121)},
-	{122, "lowercase letter z (ASCII)", ft_isprint(122)},
-	{123, "Left Curly Bracket (ASCII)", ft_isprint(123)},
-	{124, "Vertical Bar (ASCII)", ft_isprint(124)},
-	{125, "Right Curly Bracket (ASCII)", ft_isprint(125)},
-	{126, "Tilde (ASCII)", ft_isprint(126)},
-	{127, "Delete (ASCII)", ft_isprint(127)},
-	{128, "Ç (Latin Capital Letter C With Cedilla)", ft_isprint(128)},
-	{129, "ü (Latin Small Letter U With Diaeresis)", ft_isprint(129)},
-	{139, "ï (Latin Small Letter I With Diaeresis)", ft_isprint(139)},
-	{149, "ò (Latin Small Letter O With Grave)", ft_isprint(149)},
-	{159, "ƒ (Latin Small Letter F With Hook)", ft_isprint(159)},
-	{169, "⌐ (Reversed Not Sign)", ft_isprint(169)},
-	{170, "¬ (Not Sign)", ft_isprint(170)},
-	{255, "  (Non-Breaking Space)", ft_isprint(255)},
-	{256, "Ā (Latin Capital Letter A With Macron)", ft_isprint(256)},
-	{257, "ā (Latin Small Letter A With Macron)", ft_isprint(257)},
-	{500, "Ǵ (Latin Capital Letter G With Acute)", ft_isprint(500)},
-	{501, "ǵ (Latin Small Letter G With Acute)", ft_isprint(501)},
-	{700, "ˬ (Modifier Letter Raised Up Arrow)", ft_isprint(700)},
-	{701, "˭ (Modifier Letter Raised Down Arrow)", ft_isprint(701)},
-	{888, "͸ (Greek Small Letter Pamphylian Digamma)", ft_isprint(888)},
-	{889, "͹ (Greek Kolon)", ft_isprint(889)},
-	{1000, "Ϩ (Coptic Capital Letter Hori)", ft_isprint(1000)},
-	{1001, "ϩ (Coptic Small Letter Hori)", ft_isprint(1001)},
-	{1500, "᎐ (Cherokee Letter Ye)", ft_isprint(1500)},
-	{1501, "᎑ (Cherokee Letter Yi)", ft_isprint(1501)},
-	{2000, "῰ (Greek Ypogegrammeni)", ft_isprint(2000)},
-	{2001, "῱ (Greek Prosgegrammeni)", ft_isprint(2001)},
-	{3000, "〰 (Wavy Dash)", ft_isprint(3000)},
-	{3001, "〱 (Vertical Kana Repeat Mark)", ft_isprint(3001)},
-	{4000, "ী (Bengali Vowel Sign Ii)", ft_isprint(4000)},
-	{4001, "ু (Bengali Vowel Sign U)", ft_isprint(4001)},
-	{5000, "ᚠ (Runic Letter Fehu Feoh Fe F)", ft_isprint(5000)},
-	{5001, "ᚡ (Runic Letter V)", ft_isprint(5001)},
-    {0x1F600, "Emoji (grinning face) (Unicode)", ft_isprint(0x1F600)}
-	};
+        {0, "NULL character (ASCII)"},
+        {1, "Start of Heading (ASCII)"},
+        {2, "Start of Text (ASCII)"},
+        {3, "End of Text (ASCII)"},
+        {4, "End of Transmission (ASCII)"},
+        {5, "Enquiry (ASCII)"},
+        {6, "Acknowledge (ASCII)"},
+        {7, "Bell (ASCII)"},
+        {8, "Backspace (ASCII)"},
+        {9, "Horizontal Tab (ASCII)"},
+        {10, "Line Feed (ASCII)"},
+        {11, "Vertical Tab (ASCII)"},
+        {12, "Form Feed (ASCII)"},
+        {13, "Carriage Return (ASCII)"},
+        {14, "Shift Out (ASCII)"},
+        {15, "Shift In (ASCII)"},
+        {16, "Data Link Escape (ASCII)"},
+        {17, "Device Control 1 (ASCII)"},
+        {18, "Device Control 2 (ASCII)"},
+        {19, "Device Control 3 (ASCII)"},
+        {20, "Device Control 4 (ASCII)"},
+        {21, "Negative Acknowledge (ASCII)"},
+        {22, "Synchronous Idle (ASCII)"},
+        {23, "End of Transmission Block (ASCII)"},
+        {24, "Cancel (ASCII)"},
+        {25, "End of Medium (ASCII)"},
+        {26, "Substitute (ASCII)"},
+        {27, "Escape (ASCII)"},
+        {28, "File Separator (ASCII)"},
+        {29, "Group Separator (ASCII)"},
+        {30, "Record Separator (ASCII)"},
+        {31, "Unit Separator (ASCII)"},
+        {32, "Space (ASCII)"},
+        {33, "Exclamation Mark (ASCII)"},
+        {34, "Double Quote (ASCII)"},
+        {35, "Number Sign (ASCII)"},
+        {36, "Dollar Sign (ASCII)"},
+        {37, "Percent Sign (ASCII)"},
+        {38, "Ampersand (ASCII)"},
+        {39, "Single Quote (ASCII)"},
+        {40, "Left Parenthesis (ASCII)"},
+        {41, "Right Parenthesis (ASCII)"},
+        {42, "Asterisk (ASCII)"},
+        {43, "Plus Sign (ASCII)"},
+        {44, "Comma (ASCII)"},
+        {45, "Hyphen-Minus (ASCII)"},
+        {46, "Full Stop (ASCII)"},
+        {47, "Slash (ASCII)"},
+        {48, "Digit 0 (ASCII)"},
+        {49, "Digit 1 (ASCII)"},
+        {50, "Digit 2 (ASCII)"},
+        {51, "Digit 3 (ASCII)"},
+        {52, "Digit 4 (ASCII)"},
+        {53, "Digit 5 (ASCII)"},
+        {54, "Digit 6 (ASCII)"},
+        {55, "Digit 7 (ASCII)"},
+        {56, "Digit 8 (ASCII)"},
+        {57, "Digit 9 (ASCII)"},
+        {58, "Colon (ASCII)"},
+        {59, "Semicolon (ASCII)"},
+        {60, "Less Than Sign (ASCII)"},
+        {61, "Equals Sign (ASCII)"},
+        {62, "Greater Than Sign (ASCII)"},
+        {63, "Question Mark (ASCII)"},
+        {64, "At Sign (ASCII)"},
+        {65, "Uppercase Letter A (ASCII)"},
+        {66, "Uppercase Letter B (ASCII)"},
+        {67, "Uppercase Letter C (ASCII)"},
+        {68, "Uppercase Letter D (ASCII)"},
+        {69, "Uppercase Letter E (ASCII)"},
+        {70, "Uppercase Letter F (ASCII)"},
+        {71, "Uppercase Letter G (ASCII)"},
+        {72, "Uppercase Letter H (ASCII)"},
+        {73, "Uppercase Letter I (ASCII)"},
+        {74, "Uppercase Letter J (ASCII)"},
+        {75, "Uppercase Letter K (ASCII)"},
+        {76, "Uppercase Letter L (ASCII)"},
+        {77, "Uppercase Letter M (ASCII)"},
+        {78, "Uppercase Letter N (ASCII)"},
+        {79, "Uppercase Letter O (ASCII)"},
+        {80, "Uppercase Letter P (ASCII)"},
+        {81, "Uppercase Letter Q (ASCII)"},
+        {82, "Uppercase Letter R (ASCII)"},
+        {83, "Uppercase Letter S (ASCII)"},
+        {84, "Uppercase Letter T (ASCII)"},
+        {85, "Uppercase Letter U (ASCII)"},
+        {86, "Uppercase Letter V (ASCII)"},
+        {87, "Uppercase Letter W (ASCII)"},
+        {88, "Uppercase Letter X (ASCII)"},
+        {89, "Uppercase Letter Y (ASCII)"},
+        {90, "Uppercase Letter Z (ASCII)"},
+        {91, "Left Square Bracket (ASCII)"},
+        {92, "Backslash (ASCII)"},
+        {93, "Right Square Bracket (ASCII)"},
+        {94, "Circumflex Accent (ASCII)"},
+        {95, "Underscore (ASCII)"},
+        {96, "Grave Accent (ASCII)"},
+        {97, "Lowercase Letter a (ASCII)"},
+        {98, "Lowercase Letter b (ASCII)"},
+        {99, "Lowercase Letter c (ASCII)"},
+        {100, "Lowercase Letter d (ASCII)"},
+        {101, "Lowercase Letter e (ASCII)"},
+        {102, "Lowercase Letter f (ASCII)"},
+        {103, "Lowercase Letter g (ASCII)"},
+        {104, "Lowercase Letter h (ASCII)"},
+        {105, "Lowercase Letter i (ASCII)"},
+        {106, "Lowercase Letter j (ASCII)"},
+        {107, "Lowercase Letter k (ASCII)"},
+        {108, "Lowercase Letter l (ASCII)"},
+        {109, "Lowercase Letter m (ASCII)"},
+        {110, "Lowercase Letter n (ASCII)"},
+        {111, "Lowercase Letter o (ASCII)"},
+        {112, "Lowercase Letter p (ASCII)"},
+        {113, "Lowercase Letter q (ASCII)"},
+        {114, "Lowercase Letter r (ASCII)"},
+        {115, "Lowercase Letter s (ASCII)"},
+        {116, "Lowercase Letter t (ASCII)"},
+        {117, "Lowercase Letter u (ASCII)"},
+        {118, "Lowercase Letter v (ASCII)"},
+        {119, "Lowercase Letter w (ASCII)"},
+        {120, "Lowercase Letter x (ASCII)"},
+        {121, "Lowercase Letter y (ASCII)"},
+        {122, "Lowercase Letter z (ASCII)"},
+        {123, "Left Curly Bracket (ASCII)"},
+        {124, "Vertical Bar (ASCII)"},
+        {125, "Right Curly Bracket (ASCII)"},
+        {126, "Tilde (ASCII)"},
+        {127, "Delete (ASCII)"},
+        // Extended ASCII
+        {128, "Ç (Latin Capital Letter C With Cedilla)"},
+        {129, "ü (Latin Small Letter U With Diaeresis)"},
+        {130, "é (Latin Small Letter E With Acute)"},
+        {131, "â (Latin Small Letter A With Circumflex)"},
+        {132, "ä (Latin Small Letter A With Diaeresis)"},
+        {133, "à (Latin Small Letter A With Grave)"},
+        {134, "å (Latin Small Letter A With Ring Above)"},
+        {135, "ç (Latin Small Letter C With Cedilla)"},
+        {136, "ê (Latin Small Letter E With Circumflex)"},
+        {137, "ë (Latin Small Letter E With Diaeresis)"},
+        {138, "è (Latin Small Letter E With Grave)"},
+        {139, "ï (Latin Small Letter I With Diaeresis)"},
+        {140, "î (Latin Small Letter I With Circumflex)"},
+        {141, "ì (Latin Small Letter I With Grave)"},
+        {142, "Ä (Latin Capital Letter A With Diaeresis)"},
+        {143, "Å (Latin Capital Letter A With Ring Above)"},
+        {144, "É (Latin Capital Letter E With Acute)"},
+        {145, "æ (Latin Small Letter Ae)"},
+        {146, "Æ (Latin Capital Letter Ae)"},
+        {147, "ô (Latin Small Letter O With Circumflex)"},
+        {148, "ö (Latin Small Letter O With Diaeresis)"},
+        {149, "ò (Latin Small Letter O With Grave)"},
+        {150, "û (Latin Small Letter U With Circumflex)"},
+        {151, "ù (Latin Small Letter U With Grave)"},
+        {152, "ÿ (Latin Small Letter Y With Diaeresis)"},
+        {153, "Ö (Latin Capital Letter O With Diaeresis)"},
+        {154, "Ü (Latin Capital Letter U With Diaeresis)"},
+        {155, "ø (Latin Small Letter O With Stroke)"},
+        {156, "£ (Pound Sign)"},
+        {157, "Ø (Latin Capital Letter O With Stroke)"},
+        {158, "× (Multiplication Sign)"},
+        {159, "ƒ (Latin Small Letter F With Hook)"},
+        {160, "á (Latin Small Letter A With Acute)"},
+        {161, "í (Latin Small Letter I With Acute)"},
+        {162, "ó (Latin Small Letter O With Acute)"},
+        {163, "ú (Latin Small Letter U With Acute)"},
+        {164, "ñ (Latin Small Letter N With Tilde)"},
+        {165, "Ñ (Latin Capital Letter N With Tilde)"},
+        {166, "ª (Feminine Ordinal Indicator)"},
+        {167, "º (Masculine Ordinal Indicator)"},
+        {168, "¿ (Inverted Question Mark)"},
+        {169, "⌐ (Reversed Not Sign)"},
+        {170, "¬ (Not Sign)"},
+        {171, "½ (Vulgar Fraction One Half)"},
+        {172, "¼ (Vulgar Fraction One Quarter)"},
+        {173, "¡ (Inverted Exclamation Mark)"},
+        {174, "« (Left-Pointing Double Angle Quotation Mark)"},
+        {175, "» (Right-Pointing Double Angle Quotation Mark)"},
+        {176, "░ (Light Shade)"},
+        {177, "▒ (Medium Shade)"},
+        {178, "▓ (Dark Shade)"},
+        {179, "│ (Box Drawings Light Vertical)"},
+        {180, "┤ (Box Drawings Light Vertical And Left)"},
+        {181, "Á (Latin Capital Letter A With Acute)"},
+        {182, "Â (Latin Capital Letter A With Circumflex)"},
+        {183, "À (Latin Capital Letter A With Grave)"},
+        {184, "© (Copyright Sign)"},
+        {185, "╣ (Box Drawings Double Vertical And Left)"},
+        {186, "║ (Box Drawings Double Vertical)"},
+        {187, "╗ (Box Drawings Double Down And Left)"},
+        {188, "╝ (Box Drawings Double Up And Left)"},
+        {189, "¢ (Cent Sign)"},
+        {190, "¥ (Yen Sign)"},
+        {191, "┐ (Box Drawings Light Down And Left)"},
+        {192, "└ (Box Drawings Light Up And Right)"},
+        {193, "┴ (Box Drawings Light Up And Horizontal)"},
+        {194, "┬ (Box Drawings Light Down And Horizontal)"},
+        {195, "├ (Box Drawings Light Vertical And Right)"},
+        {196, "─ (Box Drawings Light Horizontal)"},
+        {197, "┼ (Box Drawings Light Vertical And Horizontal)"},
+        {198, "ã (Latin Small Letter A With Tilde)"},
+        {199, "Ã (Latin Capital Letter A With Tilde)"},
+        {200, "╚ (Box Drawings Double Up And Right)"},
+        {201, "╔ (Box Drawings Double Down And Right)"},
+        {202, "╩ (Box Drawings Double Up And Horizontal)"},
+        {203, "╦ (Box Drawings Double Down And Horizontal)"},
+        {204, "╠ (Box Drawings Double Vertical And Right)"},
+        {205, "═ (Box Drawings Double Horizontal)"},
+        {206, "╬ (Box Drawings Double Vertical And Horizontal)"},
+        {207, "¤ (Currency Sign)"},
+        {208, "ð (Latin Small Letter Eth)"},
+        {209, "Ð (Latin Capital Letter Eth)"},
+        {210, "Ê (Latin Capital Letter E With Circumflex)"},
+        {211, "Ë (Latin Capital Letter E With Diaeresis)"},
+        {212, "È (Latin Capital Letter E With Grave)"},
+        {213, "ı (Latin Small Letter Dotless I)"},
+        {214, "Í (Latin Capital Letter I With Acute)"},
+        {215, "Î (Latin Capital Letter I With Circumflex)"},
+        {216, "Ï (Latin Capital Letter I With Diaeresis)"},
+        {217, "┘ (Box Drawings Light Up And Left)"},
+        {218, "┌ (Box Drawings Light Down And Right)"},
+        {219, "█ (Full Block)"},
+        {220, "▄ (Lower Half Block)"},
+        {221, "¦ (Broken Bar)"},
+        {222, "Ì (Latin Capital Letter I With Grave)"},
+        {223, "▀ (Upper Half Block)"},
+        {224, "Ó (Latin Capital Letter O With Acute)"},
+        {225, "ß (Latin Small Letter Sharp S)"},
+        {226, "Ô (Latin Capital Letter O With Circumflex)"},
+        {227, "Ò (Latin Capital Letter O With Grave)"},
+        {228, "õ (Latin Small Letter O With Tilde)"},
+        {229, "Õ (Latin Capital Letter O With Tilde)"},
+        {230, "µ (Micro Sign)"},
+        {231, "þ (Latin Small Letter Thorn)"},
+        {232, "Þ (Latin Capital Letter Thorn)"},
+        {233, "Ú (Latin Capital Letter U With Acute)"},
+        {234, "Û (Latin Capital Letter U With Circumflex)"},
+        {235, "Ù (Latin Capital Letter U With Grave)"},
+        {236, "ý (Latin Small Letter Y With Acute)"},
+        {237, "Ý (Latin Capital Letter Y With Acute)"},
+        {238, "¯ (Macron)"},
+        {239, "´ (Acute Accent)"},
+        {240, "≡ (Congruence Sign)"},
+        {241, "± (Plus-Minus Sign)"},
+        {242, "‗ (Double Low Line)"},
+        {243, "¾ (Vulgar Fraction Three Quarters)"},
+        {244, "¶ (Pilcrow Sign)"},
+        {245, "§ (Section Sign)"},
+        {246, "÷ (Division Sign)"},
+        {247, "¸ (Cedilla)"},
+        {248, "° (Degree Sign)"},
+        {249, "¨ (Diaeresis)"},
+        {250, "· (Middle Dot)"},
+        {251, "¹ (Superscript One)"},
+        {252, "³ (Superscript Three)"},
+        {253, "² (Superscript Two)"},
+        {254, "■ (Black Square)"},
+        {255, "nbsp (Non-Breaking Space)"}
+        // // Additional Unicode characters
+        // {256, "Ā (Latin Capital Letter A With Macron)"},
+        // {257, "ā (Latin Small Letter A With Macron)"},
+        // {258, "Ă (Latin Capital Letter A with Breve)"},
+        // {259, "ă (Latin Small Letter A with Breve)"},
+        // {260, "Ą (Latin Capital Letter A with Ogonek)"},
+        // {261, "ą (Latin Small Letter A with Ogonek)"},
+        // {262, "Ć (Latin Capital Letter C with Acute)"},
+        // {263, "ć (Latin Small Letter C with Acute)"},
+        // {264, "Ĉ (Latin Capital Letter C with Circumflex)"},
+        // {265, "ĉ (Latin Small Letter C with Circumflex)"},
+        // {266, "Ċ (Latin Capital Letter C with Dot Above)"},
+        // {267, "ċ (Latin Small Letter C with Dot Above)"},
+        // {268, "Č (Latin Capital Letter C with Caron)"},
+        // {269, "č (Latin Small Letter C with Caron)"},
+        // {270, "Ď (Latin Capital Letter D with Caron)"},
+        // {271, "ď (Latin Small Letter D with Caron)"},
+        // {272, "Đ (Latin Capital Letter D with Stroke)"},
+        // {273, "đ (Latin Small Letter D with Stroke)"},
+        // {274, "Ē (Latin Capital Letter E with Macron)"},
+        // {275, "ē (Latin Small Letter E with Macron)"},
+        // {276, "Ĕ (Latin Capital Letter E with Breve)"},
+        // {277, "ĕ (Latin Small Letter E with Breve)"},
+        // {278, "Ė (Latin Capital Letter E with Dot Above)"},
+        // {279, "ė (Latin Small Letter E with Dot Above)"},
+        // {280, "Ę (Latin Capital Letter E with Ogonek)"},
+        // {281, "ę (Latin Small Letter E with Ogonek)"},
+        // {282, "Ě (Latin Capital Letter E with Caron)"},
+        // {283, "ě (Latin Small Letter E with Caron)"},
+        // {284, "Ĝ (Latin Capital Letter G with Circumflex)"},
+        // {285, "ĝ (Latin Small Letter G with Circumflex)"},
+        // {286, "Ğ (Latin Capital Letter G with Breve)"},
+        // {287, "ğ (Latin Small Letter G with Breve)"},
+        // {288, "Ġ (Latin Capital Letter G with Dot Above)"},
+        // {289, "ġ (Latin Small Letter G with Dot Above)"},
+        // {290, "Ģ (Latin Capital Letter G with Cedilla)"},
+        // {291, "ģ (Latin Small Letter G with Cedilla)"},
+        // {292, "Ĥ (Latin Capital Letter H with Circumflex)"},
+        // {293, "ĥ (Latin Small Letter H with Circumflex)"},
+        // {294, "Ħ (Latin Capital Letter H with Stroke)"},
+        // {295, "ħ (Latin Small Letter H with Stroke)"},
+        // {296, "Ĩ (Latin Capital Letter I with Tilde)"},
+        // {297, "ĩ (Latin Small Letter I with Tilde)"},
+        // {298, "Ī (Latin Capital Letter I with Macron)"},
+        // {299, "ī (Latin Small Letter I with Macron)"},
+        // {0x1F600, "😀 (Grinning Face Emoji)"},  // Hex input for emoji
+        // {0x1F601, "😁 (Grinning Face With Smiling Eyes Emoji)"},
+        // {0x1F602, "😂 (Face With Tears of Joy Emoji)"},
+        // {0x1F605, "😅 (Smiling Face With Open Mouth & Cold Sweat)"},
+		// {0x1F609, "😉 (Winking Face)"},
+		// {-1, "Negative One"},  // Negative integer
+        // {-128, "Negative One Twenty-Eight"},
+        // {-255, "Negative Two Fifty-Five"},
+        // {0xFFFFFF, "Hex 0xFFFFFF"},  // Large hex input
+        // {0xFFFFFFF, "Hex 0xFFFFFFF"}
+		};
+
 
 	printf(COLOR_BLUE ">TESTING ft_isprint------------------------------------------------------------------------\n" COLOR_RESET);
-    printf("Here I'm testing for extended ASCII (0-255) ISO-8859-1 and beyond.\n");
+    printf("Comparing ft_isprint (result) with isprint/ctype.h (expected).\n");
+
 	printf("As long the expected and the result values are non-zero, it's a PASS.\n");
 
 	// RUNNING TESTS
 	for (int i = 0; i < NUM_TESTS; i++)
-        run_test(tests[i], &fail_counter);
+    run_test(tests[i], &failed_tests, &fail_counter);
+
+	printf("\n\n");
+
 
 	// SAVING RESULTS
     if (fail_counter > 0)
@@ -222,6 +394,16 @@ int main(void)
     else
         ft_save_results("ft_isprint: OK");
 
-    printf("\n");
+    FailedTestNode *current = failed_tests;
+    while (current != NULL)
+    {
+        printf(COLOR_RED "Failed: input = %d (%s) expected = %d | result = %d \n" COLOR_RESET, current->test.input, current->test.comment, isprint(current->test.input), ft_isprint(current->test.input));
+        FailedTestNode *next = current->next;
+        free(current);
+        current = next;
+    }
+
+
+    printf("\n\n");
     return (0);
 }

@@ -57,7 +57,7 @@ static void	print_array_hex(void *array, size_t n)
 		printf("%02x ", casted[a]);
 }
 
-static void	print_array(void *array, size_t n) 
+static void	print_array(void *array, size_t n)
 {
 	size_t a;
 	char *casted = (char*)array;
@@ -100,7 +100,24 @@ void run_test(Test test, int *fail_count)
 
 	printf("Is the source data intact?\t\t\t(Expected: Y) ---> %c\n", are_sources_intact(test.test_src, test.control_src, test.size));
 	printf("Is the target data what it's supposed to be?\t(Expected: Y) ---> %c\n", are_arrays_equal(test.expected, test.result, test.size));
-	printf("The returned pointer points to the right place?\t(Expected: Y) ---> %c", are_pointers_equal(test.test_dest, test.pointer_log));
+	
+	
+
+
+
+
+	if (are_pointers_equal(test.test_dest, test.pointer_log) == 'Y')
+	{
+    	printf("\033[0;32m"); // Set the text color to green
+    	printf("The returned pointer points to the right place?\t(Expected: Y) ---> Y");
+	}
+	else
+	{
+    	printf("\033[0;31m"); // Set the text color to red
+    	printf("The returned pointer points to the right place?\t(Expected: Y) ---> N");
+	}
+	printf("\033[0m"); // Reset the text color to default
+
 
 
 	if ((are_arrays_equal(test.expected, test.result, test.size) == 'Y') &&
