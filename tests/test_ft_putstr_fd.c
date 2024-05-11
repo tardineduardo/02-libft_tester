@@ -14,7 +14,7 @@
 
 int	main(void)
 {
-	printf(COLOR_BLUE "test_ft_putstr_fd - This test is not ready yet. " COLOR_RESET);
+	printf(COLOR_BLUE "test_ft_putstr_fd - This test is not ready yet ------------------------------------------------------.\n\n" COLOR_RESET);
 	ft_save_results("ft_putstr_fd: not ready");
 }
 

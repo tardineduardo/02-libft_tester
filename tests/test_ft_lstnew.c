@@ -14,6 +14,6 @@
 
 int	main(void)
 {
-	printf(COLOR_BLUE "test_ft_lstnew - This test is not ready yet. " COLOR_RESET);
+	printf(COLOR_BLUE "test_ft_lstnew - This test is not ready yet ------------------------------------------------------.\n\n" COLOR_RESET);
 	ft_save_results("test_ft_lstnew: not ready");
 }
