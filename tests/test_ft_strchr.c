@@ -1,105 +1,79 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   test_ft_memcp.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: eduribei <eduribei@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/04/23 18:22:00 by eduribei          #+#    #+#             */
+/*   Updated: 2024/04/27 14:52:03 by eduribei         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "tester.h"
 
 typedef struct
 {
-	const char	*string;
+	const char	*s;
 	int			c;
 	char		*comment;
-	char 		*test_return;
-	char		*control_return;
 } Test;
 
-char *ft_strchr(const char *str, int c);
-
-// static void	print_string_hex(char *s) 
-// {
-// 	while(*s != '\0')
-// 	{
-// 		printf("%02x ", *s);
-// 		s++;
-// 	}
-// 	printf("%02x ", *s);
-// }
-// static void	print_string_hex_c(const char *s) 
-// {
-// 	while(*s != '\0')
-// 	{
-// 		printf("%02x ", *s);
-// 		s++;
-// 	}
-// 	printf("%02x ", *s);
-// }
-
-
+char	*ft_strchr(const char *str, int c);
 
 
 // Function to execute and print test results
 void run_test(Test test, int *fail_count)
 {
-	printf(COLOR_YELLOW "%s\n" COLOR_RESET, test.comment);
 
-	// printf("src expected:\t%s", test.control_src);
-	// printf("\t");
-	// print_string_hex_c(test.control_src);
-	// printf("\n");
-	// printf("src result:\t%s", test.test_src);
-	// printf("\t");
-	// print_string_hex_c(test.test_src);
-	// printf("\n");
+	char *expected = strchr((char *)test.s, test.c);
+	char *result = ft_strchr((char *)test.s, test.c);
 
-	// printf("dest expected:\t%s", test.control_dest);
-	// printf("\t");
-	// print_string_hex(test.control_dest);
-	// printf("\n");
-	// printf("dest result:\t%s", test.test_dest);
-	// printf("\t");
-	// print_string_hex(test.test_dest);
-	// printf("\n");
-	
-	// printf("return value expected:\t%ld", test.control_return);
-	// printf("\n");
-	// printf("return value result:\t%ld", test.test_return);
-	// printf("\n");
 
-	// printf("Is the source string intact?\t(Expected: 0) ---> %d\n", strcmp((char*)test.control_src, (char*)test.test_src));
-	// printf("Is the target string correct?\t(Expected: 0) ---> %d\n", strcmp(test.control_dest, test.test_dest));
 
-	if (test.test_return == test.control_return)
-		printf(COLOR_GREEN "[[[PASS]]]\n" COLOR_RESET);	
+	if (result == expected)
+	{
+		printf(COLOR_GREEN "\n[[[PASS]]] " COLOR_RESET);
+	}
 	else
 	{
-		printf(COLOR_RED "[[[FAIL]]]\n" COLOR_RESET);
+		printf(COLOR_RED "\n[[[FAIL]]] " COLOR_RESET);
 		(*fail_count)++;
 	}
-    printf("\n");
+
+	printf("%s", test.comment);
+    printf(" - Pointer address: expected = %p, result = %p", (char *)expected, (char *)result);
+
 
 }
 
-#define NUM_TESTS 1
+
+#define NUM_TESTS 6
 
 int main(void)
 {
     int fail_counter = 0;
 
-	char *a_string = "abcdefghijk1lmnabcdef1ghijklmn";
-	int		a_c = '1';
-	char *a_expected = strchr(a_string, '1');
-	char *a_result = ft_strchr(a_string, '1');
 
+	const char *s1 = "1234567";
+	const char *s2 = "1234567";
+	const char *s3 = "1234567";
+	const char *s4 = "s";
+	const char *s5 = "s";
+	const char *s6 = "";
 
-	Test tests[NUM_TESTS] = {
-	{
-		a_string,
-		a_c,
-		"coment.",
-		a_expected,
-		a_result,
-	}
-	};
+Test tests[NUM_TESTS] = {
+{s1, '1', "s = {\"1234567\"}, c = '1'"},
+{s2, '7', "s = {\"1234567\"}, c = '7'"},
+{s3, '8', "s = {\"1234567\"}, c = '8'"},
+{s4, 's', "s = {\"s\"}, c = 's'"},
+{s5, '@', "s = {\"s\"}, c = '@'"},
+{s6, 'a', "s = {\"\"}, c = 'a'"},
+};
 
 	printf(COLOR_BLUE ">TESTING ft_strchr------------------------------------------------------------------------\n" COLOR_RESET);
+	printf("The standard functions strchr and strrchr don't handle NULL pointers passed as parameters.\nYour implementation shouldn't handle them either.");
 
-	
 	// RUNNING TESTS
 	for (int i = 0; i < NUM_TESTS; i++)
         run_test(tests[i], &fail_counter);
@@ -110,6 +84,6 @@ int main(void)
     else
         ft_save_results("ft_strchr: OK");
 
-    printf("\n");
+    printf("\n\n\n");
     return (0);
 }

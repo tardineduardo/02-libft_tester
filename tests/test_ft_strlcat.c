@@ -78,7 +78,7 @@ void run_test(Test test, int *fail_count)
 
 }
 
-#define NUM_TESTS 6
+#define NUM_TESTS 12
 
 int main(void)
 {
@@ -128,6 +128,55 @@ int main(void)
 	char f_control_dest[20] = {"overwrite\0\0\0\0\0\0\0\0\0\0\0"};
 	size_t f_expected = strlcat(f_control_dest, f_control_src, 20);
 	size_t f_result = ft_strlcat(f_test_dest, f_test_src, 20);
+
+// Test with an empty source string
+char g_test_src[20] = {"\0"};
+char g_test_dest[20] = {"1234567890\0\0\0\0\0\0\0\0\0\0"};
+char g_control_src[20] = {"\0"};
+char g_control_dest[20] = {"1234567890\0\0\0\0\0\0\0\0\0\0"};
+size_t g_expected = strlcat(g_control_dest, g_control_src, 20);
+size_t g_result = ft_strlcat(g_test_dest, g_test_src, 20);
+
+// Test with an empty destination string
+char h_test_src[20] = {"abcdefghij\0\0\0\0\0\0\0\0\0\0"};
+char h_test_dest[20] = {"\0"};
+char h_control_src[20] = {"abcdefghij\0\0\0\0\0\0\0\0\0\0"};
+char h_control_dest[20] = {"\0"};
+size_t h_expected = strlcat(h_control_dest, h_control_src, 20);
+size_t h_result = ft_strlcat(h_test_dest, h_test_src, 20);
+
+// Test with both source and destination strings empty
+char i_test_src[20] = {"\0"};
+char i_test_dest[20] = {"\0"};
+char i_control_src[20] = {"\0"};
+char i_control_dest[20] = {"\0"};
+size_t i_expected = strlcat(i_control_dest, i_control_src, 20);
+size_t i_result = ft_strlcat(i_test_dest, i_test_src, 20);
+
+// Test with a size parameter equal to the length of the source string plus one
+char j_test_src[20] = {"abcdefghij\0\0\0\0\0\0\0\0\0\0"};
+char j_test_dest[20] = {"1234567890\0\0\0\0\0\0\0\0\0\0"};
+char j_control_src[20] = {"abcdefghij\0\0\0\0\0\0\0\0\0\0"};
+char j_control_dest[20] = {"1234567890\0\0\0\0\0\0\0\0\0\0"};
+size_t j_expected = strlcat(j_control_dest, j_control_src, strlen(j_control_src) + 1);
+size_t j_result = ft_strlcat(j_test_dest, j_test_src, strlen(j_test_src) + 1);
+
+// Test with a size parameter equal to the length of the destination string plus one
+char k_test_src[20] = {"abcdefghij\0\0\0\0\0\0\0\0\0\0"};
+char k_test_dest[20] = {"1234567890\0\0\0\0\0\0\0\0\0\0"};
+char k_control_src[20] = {"abcdefghij\0\0\0\0\0\0\0\0\0\0"};
+char k_control_dest[20] = {"1234567890\0\0\0\0\0\0\0\0\0\0"};
+size_t k_expected = strlcat(k_control_dest, k_control_src, strlen(k_control_dest) + 1);
+size_t k_result = ft_strlcat(k_test_dest, k_test_src, strlen(k_test_dest) + 1);
+
+// Test with a size parameter equal to the length of the source string plus the length of the destination string plus one
+char l_test_src[20] = {"abcdefghij\0\0\0\0\0\0\0\0\0\0"};
+char l_test_dest[20] = {"1234567890\0\0\0\0\0\0\0\0\0\0"};
+char l_control_src[20] = {"abcdefghij\0\0\0\0\0\0\0\0\0\0"};
+char l_control_dest[20] = {"1234567890\0\0\0\0\0\0\0\0\0\0"};
+size_t l_expected = strlcat(l_control_dest, l_control_src, strlen(l_control_src) + strlen(l_control_dest) + 1);
+size_t l_result = ft_strlcat(l_test_dest, l_test_src, strlen(l_test_src) + strlen(l_test_dest) + 1);
+
 
 
 	Test tests[NUM_TESTS] = {
@@ -190,7 +239,68 @@ int main(void)
 		"src[20] = {\"exactfit\\0\"} | dest[20] = {\"overwrite\\0\"}\nft_strlcat(dest, src, 20)",
 		f_expected,
 		f_result,
-	}
+	},
+	{
+        g_test_src,
+        g_test_dest,
+        g_control_src,
+        g_control_dest,
+        20,
+        "src[20] = {\"\\0\"} | dest[20] = {\"1234567890\\0\"}\nft_strlcat(dest, src, 20)",
+        g_expected,
+        g_result,
+    },
+    {
+        h_test_src,
+        h_test_dest,
+        h_control_src,
+        h_control_dest,
+        20,
+        "src[20] = {\"abcdefghij\\0\"} | dest[20] = {\"\\0\"}\nft_strlcat(dest, src, 20)",
+        h_expected,
+        h_result,
+    },
+    {
+        i_test_src,
+        i_test_dest,
+        i_control_src,
+        i_control_dest,
+        20,
+        "src[20] = {\"\\0\"} | dest[20] = {\"\\0\"}\nft_strlcat(dest, src, 20)",
+        i_expected,
+        i_result,
+    },
+	{
+        j_test_src,
+        j_test_dest,
+        j_control_src,
+        j_control_dest,
+        strlen(j_control_src) + 1,
+        "src[20] = {\"abcdefghij\\0\"} | dest[20] = {\"1234567890\\0\"}\nft_strlcat(dest, src, strlen(src) + 1)",
+        j_expected,
+        j_result,
+    },
+    {
+        k_test_src,
+        k_test_dest,
+        k_control_src,
+        k_control_dest,
+        strlen(k_control_dest) + 1,
+        "src[20] = {\"abcdefghij\\0\"} | dest[20] = {\"1234567890\\0\"}\nft_strlcat(dest, src, strlen(dest) + 1)",
+        k_expected,
+        k_result,
+    },
+    {
+        l_test_src,
+        l_test_dest,
+        l_control_src,
+        l_control_dest,
+        strlen(l_control_src) + strlen(l_control_dest) + 1,
+        "src[20] = {\"abcdefghij\\0\"} | dest[20] = {\"1234567890\\0\"}\nft_strlcat(dest, src, strlen(src) + strlen(dest) + 1)",
+        l_expected,
+        l_result,
+    }
+	
 	};
 
 	printf(COLOR_BLUE ">TESTING ft_strlcat------------------------------------------------------------------------\n" COLOR_RESET);
