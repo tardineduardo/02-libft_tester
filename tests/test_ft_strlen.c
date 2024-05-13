@@ -35,6 +35,8 @@ int	main(void)
 	test_ft_strlen("1", 1, "String with one char");
     test_ft_strlen("  ", 2, "String with only spaces");
     test_ft_strlen("hello\0world", 5, "String with null terminator in the middle");
+    test_ft_strlen(NULL, 0, "NULL");
+	test_ft_strlen("", 0, "Empty string");
 	printf("\n\n");
 
 

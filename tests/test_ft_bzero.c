@@ -43,6 +43,17 @@ static void	print_array_hex(void *array, size_t n)
 		printf("%02x ", casted[a]);
 }
 
+// static void	print_array(void *array, size_t n) 
+// {
+// 	size_t a;
+// 	char *casted = (char*)array;
+// 	printf("\"");
+// 	for(a = 0; a < n; a++)
+// 		printf("%c", casted[a]);
+// 	printf("\"");
+// }
+
+// Function to execute and print test results
 void run_test(Test test, int *fail_count)
 {
 
@@ -105,7 +116,7 @@ int main(void)
 	char e_before[35] = {"This should remain unchanged."};
 	char e_after_result[35] = {"This should remain unchanged."};
 	char e_after_expected[35] = {"This should remain unchanged."};
-	bzero(e_after_expected, (0));
+	bzero(e_after_expected, 0);
 	ft_bzero(e_after_result, 0);
 
 	Test tests[NUM_TESTS] = {

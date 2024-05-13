@@ -56,8 +56,8 @@ tests/%.o: tests/%.c
 	@${GCC} ${CFLAGS} -c $< -o $@
 
 $(EXEC): $(OBJ_T) $(NAMEL)
-	@${GCC} ${CFLAGS} -o $@ $@.o ./tests/results.c $(NAMEL)
-	@./$@
+	-@${GCC} ${CFLAGS} -o $@ $@.o ./tests/results.c $(NAMEL) -lbsd
+	-@./$@ 2> /dev/null || echo "$(RED)[$@ crashed with SIGSEGV]$(NC)"
 
 results:
 	@awk 'BEGIN { printf "$(BLUE)" } { print $$0 } END { printf "$(NC)" }' messages/m3.txt

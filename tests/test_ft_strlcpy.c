@@ -90,7 +90,7 @@ void run_test(Test test, int *fail_count)
 
 }
 
-#define NUM_TESTS 7
+#define NUM_TESTS 10
 
 int main(void)
 {
@@ -162,6 +162,39 @@ int main(void)
 	size_t g_result = ft_strlcpy(g_test_dest, g_test_src, 5);
 	size_t g_sbuffer = 4;
 	size_t g_dbuffer = 21;
+
+    // Test 2
+    char h_test_src[20] = {"abcdefghij\0........."};
+    char h_test_dest[20] = {"1234567890\0!!!!!!!!!"};
+    char h_control_src[20] = {"abcdefghij\0........."};
+    char h_control_dest[20] = {"1234567890\0!!!!!!!!!"};
+    size_t h_expected = strlcpy(h_control_dest, h_control_src, 10);
+    size_t h_result = ft_strlcpy(h_test_dest, h_test_src, 10);
+    size_t h_sbuffer = 20;
+    size_t h_dbuffer = 20;
+
+    // Test 3
+    char i_test_src[20] = {"abcdefghij\0........."};
+    char i_test_dest[20] = {"1234567890\0!!!!!!!!!"};
+    char i_control_src[20] = {"abcdefghij\0........."};
+    char i_control_dest[20] = {"1234567890\0!!!!!!!!!"};
+    size_t i_expected = strlcpy(i_control_dest, i_control_src, 0);
+    size_t i_result = ft_strlcpy(i_test_dest, i_test_src, 0);
+    size_t i_sbuffer = 20;
+    size_t i_dbuffer = 20;
+
+    // Test 4
+    char j_test_src[20] = {"abcdefghij\0........."};
+    char j_test_dest[20] = {"1234567890\0!!!!!!!!!"};
+    char j_control_src[20] = {"abcdefghij\0........."};
+    char j_control_dest[20] = {"1234567890\0!!!!!!!!!"};
+    size_t j_expected = strlcpy(j_control_dest, j_control_src, 30);
+    size_t j_result = ft_strlcpy(j_test_dest, j_test_src, 30);
+    size_t j_sbuffer = 20;
+    size_t j_dbuffer = 20;
+
+
+
 
 	Test tests[NUM_TESTS] = {
 	{
@@ -247,8 +280,10 @@ int main(void)
 		"src[4] = {\"abc\\0\"} | dest[21] = {\"memory-memory-memory\\0\"}\nft_strlcpy(dest, src, 5) | Looking for data leaks in the remaining dest buffer after \'\\0\'.",
 		g_expected,
 		g_result,
-	}
-
+	},
+		{h_test_src, h_test_dest, h_control_src, h_control_dest, 10, h_sbuffer, h_dbuffer, "Test 2: src[20] = {\"abcdefghij\\0.........\"} | dest[20] = {\"1234567890\\0!!!!!!!!!\"}\nft_strlcpy(dest, src, 10) | n < size of dest buffer.", h_expected, h_result},
+        {i_test_src, i_test_dest, i_control_src, i_control_dest, 0, i_sbuffer, i_dbuffer, "Test 3: src[20] = {\"abcdefghij\\0.........\"} | dest[20] = {\"1234567890\\0!!!!!!!!!\"}\nft_strlcpy(dest, src, 0) | n = 0.", i_expected, i_result},
+        {j_test_src, j_test_dest, j_control_src, j_control_dest, 30, j_sbuffer, j_dbuffer, "Test 4: src[20] = {\"abcdefghij\\0.........\"} | dest[20] = {\"1234567890\\0!!!!!!!!!\"}\nft_strlcpy(dest, src, 30) | n > size of dest buffer.", j_expected, j_result}
 
 	};
 
