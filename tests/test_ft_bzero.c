@@ -116,7 +116,7 @@ int main(void)
 	char e_before[35] = {"This should remain unchanged."};
 	char e_after_result[35] = {"This should remain unchanged."};
 	char e_after_expected[35] = {"This should remain unchanged."};
-	bzero(e_after_expected, 0);
+	bzero(e_after_expected, (0));
 	ft_bzero(e_after_result, 0);
 
 	Test tests[NUM_TESTS] = {
