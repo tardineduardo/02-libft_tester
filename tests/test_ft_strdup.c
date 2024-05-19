@@ -99,7 +99,9 @@ int main(void)
 		{c_s, c_control, c_comment}
 	};
 
-	printf(COLOR_BLUE ">TESTING ft_strdup------------------------------------------------------------------------\n" COLOR_RESET);
+	printf(COLOR_BLUE "\n>TESTING ft_strdup------------------------------------------------------------------------\n" COLOR_RESET);
+	printf("MAN STRDUP says: \"On success, the strdup() function returns a pointer to the duplicated string.\nIt returns NULL if insufficient memory was available, with errno set to indicate the cause of the\n error.\" It is not clear whether strdup() handle a NULL pointer as parameter, but the strdup()\navaliable on string.h won\'t handle NULL, it will crash instead. I will reproduce this behavior\nand consider a FAIL if ft_strdup returns NULL for a NULL pointer.\n\n");
+
 		
 	// RUNNING TESTS
 	for (int i = 0; i < NUM_TESTS; i++)
