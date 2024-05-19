@@ -12,98 +12,111 @@
 
 #include "tester.h"
 
-int	ft_atoi(char *c);
 
-typedef	struct
+char *ft_strdup(const char *s);
+
+
+typedef struct
 {
-	char	*input;
-	char	*comment;
-	int		result;
-	int		expected;
-} test;
+	const char	*s;
+	char		*control;		
+	char		*comment;
+} Test;
 
-void	test_ft_atoi(char* input, char *comment, int expected, int result, int *counter) //  <<-- UPDATE
+
+// Function to execute and print test results
+void run_test(Test test, int *fail_count)
 {
+    char *result;
 
-	if (result == expected)
-	{
-		printf(COLOR_GREEN "[[[PASS]]] " COLOR_RESET);
-	}
-	else
-	{
-		printf(COLOR_RED "[[[FAIL]]] " COLOR_RESET);
-		(*counter)++;
-	}
-
-	printf("Input: \"%s\" | Expected: %d | Output: %d | (%s)\n", input, expected, result, comment);
-
+    if (test.s == NULL)
+    {
+        pid_t pid = fork();
+        if (pid == 0) // child process
+        {
+            result = ft_strdup(test.s);
+            exit(0); // exit with zero status if strdup returned NULL
+        }
+        else if (pid > 0) // parent process
+        {
+            int status;
+            waitpid(pid, &status, 0); // wait for child process to finish
+            if (WIFSIGNALED(status))
+            {
+                printf(COLOR_GREEN "[[[PASS]]] " COLOR_RESET);
+                printf("ft_strdup crashed as expected when s1 = NULL.\n");
+            }
+            else
+            {
+                printf(COLOR_RED "[[[FAIL]]] " COLOR_RESET);
+                printf("ft_strdup did not crash when s1 = NULL. It should instead crash.\n");
+                (*fail_count)++;
+            }
+        }
+        else // fork failed
+        {
+            perror("fork");
+            exit(1);
+        }
+    }
+    else
+    {
+        result = ft_strdup(test.s);
+        if ((strcmp(result, test.control) == 0))
+            printf(COLOR_GREEN "[[[PASS]]] " COLOR_RESET);    
+        else
+        {
+            printf(COLOR_RED "[[[FAIL]]] " COLOR_RESET);
+            (*fail_count)++;
+        }
+        printf("(%s)\ts: \"%s\"", test.comment, test.s);
+        printf("\texpected:\"%s\"\tresult:\"%s\"", test.control, result);
+        printf("\n");
+    }
 }
 
-int	main(void)
+#define NUM_TESTS 3
+
+int main(void)
 {
-	int		fail_counter = 0;
-	int		*counter = &fail_counter;
-	test	tests[8];											//UPDATE HERE TOO!
+    int fail_counter = 0;
 
-	tests[0].input = "Star";
-	tests[0].comment = "Normal string";
-	tests[0].result = ft_atoi(tests[0].input);
-	tests[0].expected = atoi(tests[0].input);
+	const char	*a_s = "abc";
+	char		*a_control = "abc";
+	char		*a_comment = "Normal string";
 
-	tests[1].input = "";
-	tests[1].comment = "Empty string";
-	tests[1].result = ft_atoi(tests[0].input);
-	tests[1].expected = atoi(tests[0].input);
+	const char	*b_s = "\0";
+	char		*b_control = "\0";
+	char		*b_comment = "Empty string";
 
-	tests[2].input = "1";
-	tests[2].comment = "One numeric char";
-	tests[2].result = ft_atoi(tests[0].input);
-	tests[2].expected = atoi(tests[0].input);
+	const char	*c_s = NULL;
+	char		*c_control = "it should crash";
+	char		*c_comment = "NULL pointer";
 
-	tests[3].input = "+35";
-	tests[3].comment = "One plus sign";
-	tests[3].result = ft_atoi(tests[0].input);
-	tests[3].expected = atoi(tests[0].input);
+	Test tests[NUM_TESTS] = {
+		{a_s, a_control, a_comment},
+		{b_s, b_control, b_comment},
+		{c_s, c_control, c_comment}
+	};
 
-	tests[4].input = "  ";
-	tests[4].comment = "Only spaces";
-	tests[4].result = ft_atoi(tests[0].input);
-	tests[4].expected = atoi(tests[0].input);
+	printf(COLOR_BLUE "\n>TESTING ft_strdup------------------------------------------------------------------------\n" COLOR_RESET);
+	printf("MAN STRDUP says: \"On success, the strdup() function returns a pointer to the duplicated string.\nIt returns NULL if insufficient memory was available, with errno set to indicate the cause of the\n error.\" It is not clear whether strdup() handle a NULL pointer as parameter, but the strdup()\navaliable on string.h won\'t handle NULL, it will crash instead. I will reproduce this behavior\nand consider a FAIL if ft_strdup returns NULL for a NULL pointer.\n\n");
 
-	tests[5].input = "-9384";
-	tests[5].comment = "Minus sign";
-	tests[5].result = ft_atoi(tests[0].input);
-	tests[5].expected = atoi(tests[0].input);
+		
+	// RUNNING TESTS
+	for (int i = 0; i < NUM_TESTS; i++)
+        run_test(tests[i], &fail_counter);
 
-	tests[6].input = "   84";
-	tests[6].comment = "Trailing spaces";
-	tests[6].result = ft_atoi(tests[0].input);
-	tests[6].expected = atoi(tests[0].input);
+	// SAVING RESULTS
+    if (fail_counter > 0)
+        ft_save_results("ft_strdup: FAIL");
+    else
+        ft_save_results("ft_strdup: OK");
 
-	tests[7].input = "84   ";
-	tests[7].comment = "Trailing spaces";
-	tests[7].result = ft_atoi(tests[0].input);
-	tests[7].expected = atoi(tests[0].input);
-
-	tests[7].input = " 84  ";
-	tests[7].comment = "Trailing spaces";
-	tests[7].result = ft_atoi(tests[0].input);
-	tests[7].expected = atoi(tests[0].input);
-
-	printf(COLOR_BLUE ">TESTING ft_atoi------------------------------------------------------------------------\n" COLOR_RESET);
-
-	int a = 0;
-	while (a < 8) 		//<<<------------------------UPDATE HERE!
-	{
-		test_ft_atoi(tests[a].input, tests[a].comment, tests[a].result, tests[a].expected, counter); //UPDATE HERE!
-		a++;
-	}
-
-	if (fail_counter > 0)
-		ft_save_results("ft_atoi: FAIL"); 		//<<<------------------------UPDATE FT HERE! DON'T CHANGE STRING.
-	else
-		ft_save_results("ft_atoi: OK");			//<<<------------------------UPDATE FT HERE! DON'T CHANGE STRING.
-
-	printf("\n");
-	return (0);
+    printf("\n\n");
+    return (0);
 }
+
+
+
+

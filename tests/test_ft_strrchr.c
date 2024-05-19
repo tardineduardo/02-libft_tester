@@ -48,7 +48,7 @@ void run_test(Test test, int *fail_count)
 }
 
 
-#define NUM_TESTS 6
+#define NUM_TESTS 7
 
 int main(void)
 {
@@ -61,6 +61,8 @@ int main(void)
 	const char *s4 = "s";
 	const char *s5 = "s";
 	const char *s6 = "";
+	const char *s7 = "123a567";
+
 
 Test tests[NUM_TESTS] = {
 {s1, '1', "s = {\"1234567\"}, c = '1'"},
@@ -69,12 +71,13 @@ Test tests[NUM_TESTS] = {
 {s4, 's', "s = {\"s\"}, c = 's'"},
 {s5, '@', "s = {\"s\"}, c = '@'"},
 {s6, 'a', "s = {\"\"}, c = 'a'"},
+{s7, 'a' + 256, "s = {\"123a56\"}, c = 'a' + 256"},
 
 
 };
 
 	printf(COLOR_BLUE ">TESTING ft_strrchr------------------------------------------------------------------------\n" COLOR_RESET);
-	printf("The standard functions strchr and strrchr don't handle NULL pointers passed as parameters.\nYour implementation shouldn't handle them either.");
+	printf("The standard functions strchr() and strrchr() cast the int parameter as unsigned char.\nTo reproduce their behaviour, values biger than 255 should wrap around to the start of the range.");
 	// RUNNING TESTS
 	for (int i = 0; i < NUM_TESTS; i++)
         run_test(tests[i], &fail_counter);

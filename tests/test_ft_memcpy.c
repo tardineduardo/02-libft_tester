@@ -31,8 +31,8 @@ static char	are_arrays_equal(char *expected, char *result, size_t n)
 {
   size_t a = 0;
   while(a < n) 
-  	{
-    	if (expected[a] != result[a])
+	{
+		if (expected[a] != result[a])
 			return ('N');
 		a++;
   	}
@@ -43,7 +43,7 @@ static char	are_pointers_equal(void *expected, void *result)
 {
 	char *a = (char *)expected;
 	char *b = (char *)result;
-   	if (a != b)
+	if (a != b)
 		return ('N');
 	else	
 	  	return ('Y');
