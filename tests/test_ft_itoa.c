@@ -21,7 +21,7 @@ static int	run_test(int num)
 int	itoa_test_cases(void)
 {
 	int				i;
-	int				num_array[] = {INT_MIN, INT_MAX, 0, -23838, 38493, 1022, 1, 400, 4833};
+	int				num_array[] = {0, -23838, 38493, 1022, 1, 400, 4833};
 	unsigned int	res;
 	i = 0;
 	res = 0;

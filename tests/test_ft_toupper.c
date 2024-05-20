@@ -6,7 +6,7 @@
 /*   By: eduribei <eduribei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 16:41:14 by eduribei          #+#    #+#             */
-/*   Updated: 2024/04/29 20:39:36 by eduribei         ###   ########.fr       */
+/*   Updated: 2024/05/20 15:56:03 by eduribei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ int ft_toupper(int c);
 
 typedef struct
 {
-    int input;
-    char *comment;
-    int result;
+	int input;
+	char *comment;
+	int result;
 } Test;
 
 typedef struct failed_test_node
