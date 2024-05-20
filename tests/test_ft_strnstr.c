@@ -6,7 +6,7 @@
 /*   By: eduribei <eduribei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 18:22:00 by eduribei          #+#    #+#             */
-/*   Updated: 2024/05/20 17:58:14 by eduribei         ###   ########.fr       */
+/*   Updated: 2024/05/20 19:00:59 by eduribei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,6 +169,13 @@ void run_test(Test test, int *fail_counter)
 		else if (strcmp(result, test.control) == 0)
         {
             printf(COLOR_GREEN "[[[PASS]]] " COLOR_RESET);
+   	   		printf("(%s)\tbig: \"%s\", little: \"%s\", len: %zu", test.comment, test.big, test.little, test.len);
+        	printf("\texpected:\"%s\"\tresult:\"%s\"", test.control, result);
+        	printf("\n");
+        }
+		else if (strcmp(result, test.control) != 0)
+        {
+            printf(COLOR_RED "[[[FAIL]]] " COLOR_RESET);
    	   		printf("(%s)\tbig: \"%s\", little: \"%s\", len: %zu", test.comment, test.big, test.little, test.len);
         	printf("\texpected:\"%s\"\tresult:\"%s\"", test.control, result);
         	printf("\n");
