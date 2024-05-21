@@ -16,28 +16,6 @@ typedef struct
 
 size_t	ft_strlcpy(char *dst, const char *src, size_t size);
 
-/*static void	print_string_hex(char *s) 
-{
-	while(*s != '\0')
-	{
-		printf("%02x ", *s);
-		s++;
-	}
-	printf("%02x ", *s);
-}
-
-static void	print_string_hex_c(const char *s) 
-{
-	while(*s != '\0')
-	{
-		printf("%02x ", *s);
-		s++;
-	}
-	printf("%02x ", *s);
-}*/
-
-
-
 static void	print_array_hex(void *array, size_t n) 
 {
 	size_t a;
@@ -100,101 +78,111 @@ int main(void)
 	char a_test_dest[20] = {"1234567890\0!!!!!!!!!"};
 	char a_control_src[20] = {"abcdefghij\0........."};
 	char a_control_dest[20] = {"1234567890\0!!!!!!!!!"};
+	size_t a_size = 20;
 	size_t a_expected = strlcpy(a_control_dest, a_control_src, 20);
 	size_t a_result = ft_strlcpy(a_test_dest, a_test_src, 20);
 	size_t a_sbuffer = 20;
 	size_t a_dbuffer = 20;	
+	char *a_comment = "src[20] = {\"abcdefghij\\0.........\"} | dest[20] = {\"1234567890\\0!!!!!!!!!\"}\nft_strlcpy(dest, src, 20) | strings and buffers of same size, n = size of dest buffer.";
 
 	char b_test_src[20] = {"1234\0..............."};
 	char b_test_dest[20] = {"abcdefghij\0@@@@@@@@@"};
 	char b_control_src[20] = {"1234\0..............."};
 	char b_control_dest[20] = {"abcdefghij\0@@@@@@@@@"};
+	size_t b_size = 20;
 	size_t b_expected = strlcpy(b_control_dest, b_control_src, 20);
 	size_t b_result = ft_strlcpy(b_test_dest, b_test_src, 20);
 	size_t b_sbuffer = 20;
 	size_t b_dbuffer = 20;	
+	char *b_comment = "src[20] = {\"1234\\0...............\"} | dest[20] = {\"abcdefghij\\0@@@@@@@@@\"}\nft_strlcpy(dest, src, 20) | src shorter, buffers of same size, n = size of dest buffer.";
 
 	char c_test_src[20] = {"abcdefghij\0\0\0\0\0\0\0\0\0\0"};
 	char c_test_dest[6] = {"12345\0"};
 	char c_control_src[20] = {"abcdefghij\0\0\0\0\0\0\0\0\0\0"};
 	char c_control_dest[6] = {"12345\0"};
+	size_t c_size = 7;
 	size_t c_expected = strlcpy(c_control_dest, c_control_src, 6);
 	size_t c_result = ft_strlcpy(c_test_dest, c_test_src, 6);
 	size_t c_sbuffer = 20;
 	size_t c_dbuffer = 6;	
+	char *c_comment = "src[20] = {\"abcdefghij\\0\"} | dest[20] = {\"12345\\0\"}\nft_strlcpy(dest, src, 7) | Trying to copy 7 chars into smaller dest.";
 
-	// Test with the size parameter set to 0 (no characters should be copied)
 	char d_test_src[20] = {"abcdefghij\0\0\0\0\0\0\0\0\0\0"};
-	char d_test_dest[20] = {"1234567890\0\0\0\0\0\0\0\0\0\0"};
+	char d_test_dest[20] = {"\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0"};
 	char d_control_src[20] = {"abcdefghij\0\0\0\0\0\0\0\0\0\0"};
-	char d_control_dest[20] = {"1234567890\0\0\0\0\0\0\0\0\0\0"};
+	char d_control_dest[20] = {"\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0"};
+	size_t d_size = 5;
 	size_t d_expected = strlcpy(d_control_dest, d_control_src, 0);
 	size_t d_result = ft_strlcpy(d_test_dest, d_test_src, 0);
 	size_t d_sbuffer = 20;
 	size_t d_dbuffer = 20;	
+	char *d_comment = "src[20] = {\"abcdefghij\\0\"} | dest[20] = {\"\0\"}\nft_strlcpy(dest, src, 5) | Should copy 0 chars.";
 
-	// Test with a size parameter larger than the source string length
-	char e_test_src[20] = {"short\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0"};
-	char e_test_dest[20] = {"1234567890\0\0\0\0\0\0\0\0\0\0"};
-	char e_control_src[20] = {"short\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0"};
-	char e_control_dest[20] = {"1234567890\0\0\0\0\0\0\0\0\0\0"};
-	size_t e_expected = strlcpy(e_control_dest, e_control_src, 11);
-	size_t e_result = ft_strlcpy(e_test_dest, e_test_src, 11);
+	char e_test_src[20] = {"hi\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0"};
+	char e_test_dest[1] = {"\0"};
+	char e_control_src[20] = {"hi\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0"};
+	char e_control_dest[1] = {"\0"};
+	size_t e_size = 20;
+	size_t e_expected = strlcpy(e_control_dest, e_control_src, 20);
+	size_t e_result = ft_strlcpy(e_test_dest, e_test_src, 20);
 	size_t e_sbuffer = 20;
-	size_t e_dbuffer = 20;
+	size_t e_dbuffer = 1;
+	char *e_comment = "src[20] = {\"hi\\0\"} | dest[1] = {\"\\0\"}\nft_strlcpy(dest, src, 20) | Single byte, empty dest.";
 
-	// Test with exact buffer size match to the null-terminated source string
 	char f_test_src[20] = {"exactfit\0\0\0\0\0\0\0\0\0\0\0\0"};
 	char f_test_dest[20] = {"overwrite\0\0\0\0\0\0\0\0\0\0\0"};
 	char f_control_src[20] = {"exactfit\0\0\0\0\0\0\0\0\0\0\0\0"};
 	char f_control_dest[20] = {"overwrite\0\0\0\0\0\0\0\0\0\0\0"};
+	size_t f_size = 9;
 	size_t f_expected = strlcpy(f_control_dest, f_control_src, 9);
 	size_t f_result = ft_strlcpy(f_test_dest, f_test_src, 9);
 	size_t f_sbuffer = 20;
 	size_t f_dbuffer = 20;
+	char *f_comment = "src[20] = {\"exactfit\\0\"} | dest[20] = {\"overwrite\\0\"}\nft_strlcpy(dest, src, 9) | Exact buffer size match to null-terminated source.";
 
-	// Testing if content leaks will happen after copying less than the buffer size
 	char g_test_src[4] = {"abc"};
-	char g_test_dest[21] = {"memory-memory-memory"};
+	char g_test_dest[26] = {"hum, my password is 123"};
 	char g_control_src[4] = {"abc"};
-	char g_control_dest[21] = {"overwrite\0\0\0\0\0\0\0\0\0\0\0"};
+	char g_control_dest[26] = {"hum, my password is 123"};
+	size_t g_size = 5;
 	size_t g_expected = strlcpy(g_control_dest, g_control_src, 5);
 	size_t g_result = ft_strlcpy(g_test_dest, g_test_src, 5);
 	size_t g_sbuffer = 4;
-	size_t g_dbuffer = 21;
+	size_t g_dbuffer = 26;
+	char *g_comment = "src[4] = {\"abc\\0\"} | dest[21] = {\"memory-memory-memory\\0\"}\nft_strlcpy(dest, src, 5) | Looking for data leaks in the remaining dest buffer after \'\\0\'.";
 
-    // Test 2
     char h_test_src[20] = {"abcdefghij\0........."};
     char h_test_dest[20] = {"1234567890\0!!!!!!!!!"};
     char h_control_src[20] = {"abcdefghij\0........."};
     char h_control_dest[20] = {"1234567890\0!!!!!!!!!"};
+	size_t h_size = 10;
     size_t h_expected = strlcpy(h_control_dest, h_control_src, 10);
     size_t h_result = ft_strlcpy(h_test_dest, h_test_src, 10);
     size_t h_sbuffer = 20;
     size_t h_dbuffer = 20;
+	char *h_comment = "Test 2: src[20] = {\"abcdefghij\\0.........\"} | dest[20] = {\"1234567890\\0!!!!!!!!!\"}\nft_strlcpy(dest, src, 10) | n < size of dest buffer.";
 
-    // Test 3
     char i_test_src[20] = {"abcdefghij\0........."};
     char i_test_dest[20] = {"1234567890\0!!!!!!!!!"};
     char i_control_src[20] = {"abcdefghij\0........."};
     char i_control_dest[20] = {"1234567890\0!!!!!!!!!"};
+	size_t i_size = 0;
     size_t i_expected = strlcpy(i_control_dest, i_control_src, 0);
     size_t i_result = ft_strlcpy(i_test_dest, i_test_src, 0);
     size_t i_sbuffer = 20;
     size_t i_dbuffer = 20;
+	char *i_comment = "Test 3: src[20] = {\"abcdefghij\\0.........\"} | dest[20] = {\"1234567890\\0!!!!!!!!!\"}\nft_strlcpy(dest, src, 0) | n = 0.";
 
-    // Test 4
     char j_test_src[20] = {"abcdefghij\0........."};
     char j_test_dest[20] = {"1234567890\0!!!!!!!!!"};
     char j_control_src[20] = {"abcdefghij\0........."};
     char j_control_dest[20] = {"1234567890\0!!!!!!!!!"};
+	size_t j_size = 30;	
     size_t j_expected = strlcpy(j_control_dest, j_control_src, 30);
     size_t j_result = ft_strlcpy(j_test_dest, j_test_src, 30);
-    size_t j_sbuffer = 20;
+	size_t j_sbuffer = 20;
     size_t j_dbuffer = 20;
-
-
-
+	char *j_comment = "Test 4: src[20] = {\"abcdefghij\\0.........\"} | dest[20] = {\"1234567890\\0!!!!!!!!!\"}\nft_strlcpy(dest, src, 30) | n > size of dest buffer.";
 
 	Test tests[NUM_TESTS] = {
 	{
@@ -202,10 +190,10 @@ int main(void)
 		a_test_dest,
 		a_control_src,
 		a_control_dest,
-		20,
+		a_size,
 		a_sbuffer,
 		a_dbuffer,
-		"src[20] = {\"abcdefghij\\0.........\"} | dest[20] = {\"1234567890\\0!!!!!!!!!\"}\nft_strlcpy(dest, src, 20) | strings and buffers of same size, n = size of dest buffer.",
+		a_comment,
 		a_expected,
 		a_result,
 	},
@@ -214,10 +202,10 @@ int main(void)
 		b_test_dest,
 		b_control_src,
 		b_control_dest,
-		20,
+		b_size,
 		b_sbuffer,
 		b_dbuffer,
-		"src[20] = {\"1234\\0...............\"} | dest[20] = {\"abcdefghij\\0@@@@@@@@@\"}\nft_strlcpy(dest, src, 20) | src shorter, buffers of same size, n = size of dest buffer.",
+		b_comment,
 		b_expected,
 		b_result,
 	},
@@ -226,10 +214,10 @@ int main(void)
 		c_test_dest,
 		c_control_src,
 		c_control_dest,
-		7,
+		c_size,
 		c_sbuffer,
 		c_dbuffer,		
-		"src[20] = {\"abcdefghij\\0\"} | dest[20] = {\"12345\\0\"}\nft_strlcpy(dest, src, 7) | Trying to copy 7 chars into smaller dest.",
+		c_comment,
 		c_expected,
 		c_result,
 	},
@@ -238,10 +226,10 @@ int main(void)
 		d_test_dest,
 		d_control_src,
 		d_control_dest,
-		0,
+		d_size,
 		d_sbuffer,
 		d_dbuffer,	
-		"src[20] = {\"abcdefghij\\0\"} | dest[20] = {\"1234567890\\0\"}\nft_strlcpy(dest, src, 0) | Should copy 0 chars.",
+		d_comment,
 		d_expected,
 		d_result,
 	},
@@ -250,10 +238,10 @@ int main(void)
 		e_test_dest,
 		e_control_src,
 		e_control_dest,
-		20,
+		e_size,
 		e_sbuffer,
 		e_dbuffer,	
-		"src[20] = {\"short\\0\"} | dest[20] = {\"1234567890\\0\"}\nft_strlcpy(dest, src, 20) | Looking for data leaks in the remaining dest buffer after \'\\0\'.",
+		e_comment,
 		e_expected,
 		e_result,
 	},
@@ -262,10 +250,10 @@ int main(void)
 		f_test_dest,
 		f_control_src,
 		f_control_dest,
-		9,
+		f_size,
 		f_sbuffer,
 		f_dbuffer,	
-		"src[20] = {\"exactfit\\0\"} | dest[20] = {\"overwrite\\0\"}\nft_strlcpy(dest, src, 9) | Exact buffer size match to null-terminated source.",
+		f_comment,
 		f_expected,
 		f_result,
 	},
@@ -274,16 +262,16 @@ int main(void)
 		g_test_dest,
 		g_control_src,
 		g_control_dest,
-		5,
+		g_size,
 		g_sbuffer,
 		g_dbuffer,
-		"src[4] = {\"abc\\0\"} | dest[21] = {\"memory-memory-memory\\0\"}\nft_strlcpy(dest, src, 5) | Looking for data leaks in the remaining dest buffer after \'\\0\'.",
+		g_comment,
 		g_expected,
 		g_result,
 	},
-		{h_test_src, h_test_dest, h_control_src, h_control_dest, 10, h_sbuffer, h_dbuffer, "Test 2: src[20] = {\"abcdefghij\\0.........\"} | dest[20] = {\"1234567890\\0!!!!!!!!!\"}\nft_strlcpy(dest, src, 10) | n < size of dest buffer.", h_expected, h_result},
-        {i_test_src, i_test_dest, i_control_src, i_control_dest, 0, i_sbuffer, i_dbuffer, "Test 3: src[20] = {\"abcdefghij\\0.........\"} | dest[20] = {\"1234567890\\0!!!!!!!!!\"}\nft_strlcpy(dest, src, 0) | n = 0.", i_expected, i_result},
-        {j_test_src, j_test_dest, j_control_src, j_control_dest, 30, j_sbuffer, j_dbuffer, "Test 4: src[20] = {\"abcdefghij\\0.........\"} | dest[20] = {\"1234567890\\0!!!!!!!!!\"}\nft_strlcpy(dest, src, 30) | n > size of dest buffer.", j_expected, j_result}
+		{h_test_src, h_test_dest, h_control_src, h_control_dest, h_size, h_sbuffer, h_dbuffer, h_comment, h_expected, h_result},
+        {i_test_src, i_test_dest, i_control_src, i_control_dest, i_size, i_sbuffer, i_dbuffer, i_comment, i_expected, i_result},
+        {j_test_src, j_test_dest, j_control_src, j_control_dest, j_size, j_sbuffer, j_dbuffer, j_comment, j_expected, j_result}
 
 	};
 
