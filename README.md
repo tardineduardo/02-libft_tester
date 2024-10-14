@@ -31,11 +31,43 @@ We are still learning how to create more complex and dynamic Makefiles, so for t
  ```
 ## Tests available
 - ft_atoi
+- ft_bzero
 - ft_isalpha
+- ft_islanum
 - ft_isascii
+- ft_isprint
 - ft_isdigit
 - ft_memset
 - ft_memcpy
+- ft_memmove
+- ft_memset
+- ft_memcmp
 - ft_strlen
 - ft_toupper
-- ft_tolower  
+- ft_tolower
+- ft_strchar
+- ft_strrchar
+- ft_strdup
+- ft_striteri
+- ft_strlcat
+- ft_strlcpy
+- ft_strtrim
+- ft_strjoin
+
+## Unavailable
+- ft_calloc
+- ft_itoa
+- ft_split
+- ft_strncmp
+- ft_strmapi
+- ft_lstclear
+- ft_lstdelone
+- ft_lstiter
+- ft_lstlast
+- ft_lstmap
+- ft_lstnew
+- ft_lstsize
+- ft_putchar_fd
+- ft_putendl_fd
+- ft_putnbr_fd
+- ft_putstr_fd

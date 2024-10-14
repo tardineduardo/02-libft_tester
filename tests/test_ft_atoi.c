@@ -6,7 +6,7 @@
 /*   By: eduribei <eduribei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 14:21:26 by eduribei          #+#    #+#             */
-/*   Updated: 2024/04/28 17:54:53 by eduribei         ###   ########.fr       */
+/*   Updated: 2024/10/14 15:31:00 by eduribei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,14 @@ void run_test(Test test, int *fail_count)
         {
             int status;
             waitpid(pid, &status, 0); // wait for child process to finish
-            if (WIFSIGNALED(status))
+            if (WIFSIGNALED(status)) // if not zero
             {
                 printf(COLOR_GREEN "[[[PASS]]] " COLOR_RESET);
-                printf("ft_strdup crashed as expected when s1 = NULL.\n");
+                printf("ft_strdup crashed when s1 = NULL.\n");
             }
-            else
+            else // if zero
             {
-                printf(COLOR_RED "[[[FAIL]]] " COLOR_RESET);
+                printf(COLOR_YELLOW "[[[FAIL]]] " COLOR_RESET);
                 printf("ft_strdup did not crash when s1 = NULL. It should instead crash.\n");
                 (*fail_count)++;
             }
